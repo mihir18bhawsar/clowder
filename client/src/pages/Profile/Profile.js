@@ -2,23 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import Topbar from "../../Components/Topbar/Topbar";
 import "./Profile.css";
-import history from "../../history";
-import { errorShow, getUser, getMe } from "../../actions";
-import MessageBlock from "../../Components/MessageBlock/MessageBlock";
 class Profile extends React.Component {
-	constructor(props) {
-		super(props);
-		if (!(props.isLoggedIn || props.match.params.user)) {
-			props.errorShow(401, "Login To Access");
-			history.push("/login");
-		}
-		if (props.match.params.user) {
-			props.getUser(props.match.params.user);
-		} else {
-			props.getMe();
-		}
-	}
-
 	renderUserDetails = () => {
 		return (
 			<div className="user-details">
@@ -30,7 +14,7 @@ class Profile extends React.Component {
 					>
 						{this.props.user.username}
 						<span id="small-username">
-							Age {this.props.user.age}
+							Age {this.props.user.age || "unknown"}
 						</span>
 					</li>
 					<li className="grid-item noProperty" id="email" key="email">
@@ -51,12 +35,15 @@ class Profile extends React.Component {
 					</li>
 					<li className="grid-item noProperty" id="about" key="about">
 						<h2>About</h2>
-						<p className="profile-value">{this.props.user.about}</p>
+						<p className="profile-value">
+							{this.props.user.about ||
+								"you did not specify something about you"}
+						</p>
 					</li>
 					<li className="grid-item" id="country" key="country">
 						<p className="profile-key">Country |</p>
 						<p className="profile-value">
-							{this.props.user.country}
+							{this.props.user.country || "unknown"}
 						</p>
 					</li>
 					<li
@@ -66,10 +53,12 @@ class Profile extends React.Component {
 					>
 						<p className="profile-key">Relationship |</p>
 						<p className="profile-value">
-							{this.props.user.relationship}
+							{this.props.user.relationship || "unspecified"}
 						</p>
 					</li>
-					<button className="profile-form-button">Edit</button>
+					<button className="profile-form-button">
+						Follow/unfollow
+					</button>
 				</ul>
 			</div>
 		);
@@ -110,9 +99,6 @@ class Profile extends React.Component {
 		);
 	};
 	render() {
-		if (!this.props.user) {
-			return <MessageBlock message="loading" />;
-		}
 		return (
 			<div className="userprofile-container">
 				<Topbar />
@@ -122,17 +108,15 @@ class Profile extends React.Component {
 					{this.renderUserDetails()}
 				</div>
 			</div>
-			//jsakdfj
-			//
 		);
 	}
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: state.auth.isLoggedIn,
-		user: state.user["me"],
+		user: null,
 	};
 };
 
-export default connect(mapStateToProps, { errorShow, getUser, getMe })(Profile);
+export default connect(mapStateToProps)(Profile);

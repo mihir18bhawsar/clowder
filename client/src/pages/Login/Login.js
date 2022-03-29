@@ -20,10 +20,16 @@ class Login extends React.Component {
 		this.props.login(formValues);
 	};
 	renderInput = ({ input, meta, Type, Label, ClassName }) => {
+		console.log(meta);
 		return (
 			<div className="fieldContainer">
 				<label>{Label}</label>
 				<input {...input} type={Type} className={ClassName} />
+				<div className="metaerror">
+					{meta.error && meta.touched && !meta.active
+						? "*" + meta.error
+						: null}
+				</div>
 			</div>
 		);
 	};
@@ -74,6 +80,17 @@ const mapStateToProps = (state) => {
 	};
 };
 
+const validate = (formValues) => {
+	const errors = {};
+	if (!formValues.email) {
+		errors.email = "provide an email address";
+	}
+	if (!formValues.password) {
+		errors.password = "enter password";
+	}
+	return errors;
+};
+
 export default connect(mapStateToProps, { login, messageShow })(
-	reduxForm({ form: "login" })(Login)
+	reduxForm({ form: "login", validate })(Login)
 );

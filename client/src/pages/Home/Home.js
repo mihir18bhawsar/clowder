@@ -2,7 +2,7 @@ import React from "react";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { getFollowing, getFollowers } from "../../actions";
+import { getMeAndMore } from "../../actions/index";
 import "./Home.css";
 import Topbar from "../../Components/Topbar/Topbar";
 import Feed from "../../Components/Feed/Feed";
@@ -12,8 +12,7 @@ import OnlineFriends from "../../Components/OnlineFriends/OnlineFriends";
 class Home extends React.Component {
 	componentDidMount() {
 		if (this.props.isLoggedIn) {
-			this.props.getFollowing();
-			this.props.getFollowers();
+			this.props.getMeAndMore();
 		}
 	}
 	authenticatedRender() {
@@ -68,6 +67,7 @@ class Home extends React.Component {
 const mapStateToProps = (state, ownProps) => {
 	return {
 		isLoggedIn: state.auth.isLoggedIn,
+		me: state.user.me,
 	};
 };
-export default connect(mapStateToProps, { getFollowing, getFollowers })(Home);
+export default connect(mapStateToProps, { getMeAndMore })(Home);

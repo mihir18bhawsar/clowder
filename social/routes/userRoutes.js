@@ -13,8 +13,8 @@ router.get(
 	userController.getAllUsers
 );
 router
-	.route("/:id")
-	.get(userController.getOne)
+	.route("/:user")
+	.get(userController.checkUser, userController.getUser)
 	.patch(
 		authController.protect,
 		authController.adminRightsCheck,
@@ -26,7 +26,6 @@ router.patch(
 	authController.protect,
 	userController.unfollowUser
 );
-router.get("/user/:username", userController.getUserByUsername);
 router.get("/:id?/followers", userController.showFollowers);
 router.get(
 	"/:id?/following",

@@ -15,16 +15,25 @@ exports.update = catchAsync(async (req, res, next) => {
 	res.status(200).json({ status: "success", data: { user } });
 });
 /*recap
-  update user and ensuring that he dont get admin rights.
+update user and ensuring that he dont get admin rights.
 */
 exports.getAllUsers = catchAsync(async (req, res, next) => {
 	const users = await User.find().select("-password");
 	res.status(200).json({ status: "success", data: { users } });
 });
 
-exports.getOne = catchAsync(async (req, res, next) => {
-	const user = await User.findById(req.params.id).select("-password");
-	if (!user) return next(new AppError(404, "User is not found"));
+exports.checkUser = catchAsync(async (req, res, next) => {
+	if (req.params.user.length <= 15) req.isusername = true;
+	else req.isusername = false;
+	next();
+});
+
+exports.getUser = catchAsync(async (req, res, next) => {
+	let user;
+	if (req.isusername)
+		user = await User.findOne({ username: req.params.user });
+	else user = await User.findById(req.params.user);
+	if (!user) return next(new AppError(404, "No such user found"));
 	res.status(200).json({ status: "success", data: { user } });
 });
 exports.getMe = catchAsync(async (req, res, next) => {
@@ -252,18 +261,6 @@ exports.getUserPosts = catchAsync(async (req, res, next) => {
 		status: "success",
 		data: {
 			timeline,
-		},
-	});
-});
-
-exports.getUserByUsername = catchAsync(async (req, res, next) => {
-	const user = await User.findOne({ username: req.params.username });
-	if (!user)
-		return next(new AppError(404, "No user found with this username"));
-	res.status(200).json({
-		status: "success",
-		data: {
-			user,
 		},
 	});
 });
