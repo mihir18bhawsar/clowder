@@ -1,0 +1,52 @@
+.of-container {
+	display: flex;
+	width: 100%;
+	flex: 1;
+	flex-direction: column;
+	align-items: center;
+	color: blueviolet;
+	background-color: white;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+li {
+	list-style: none;
+}
+
+.of-container hr {
+	border-top: 4px solid blueviolet;
+	width: 80%;
+}
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: blueviolet;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: violet;
+}
+
+.sidebar-title {
+	font-weight: 700;
+	font-size: calc(1vw + 8px);
+	padding: 1.5vw;
+}
+
+ul {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	padding: calc(1vw + 15px);
+}

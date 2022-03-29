@@ -1,0 +1,111 @@
+.login-container {
+	display: flex;
+	width: 100vw;
+	height: 100vh;
+	flex-direction: column;
+	align-items: center;
+}
+.authContainer {
+	margin-top: 6vh;
+	width: 40%;
+	height: 80%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: white;
+	background: linear-gradient(to bottom right, blueviolet, steelblue);
+	border-radius: 3vw;
+}
+.login-heading {
+	font-weight: 900;
+	font-size: 4vw;
+}
+.login-subheading {
+	font-weight: 400;
+	font-variant: small-caps;
+	font-size: 1.5vw;
+}
+.login-heading,
+.login-subheading {
+	text-shadow: 0 0 2px white;
+}
+
+.textfield {
+	width: 100%;
+	text-align: center;
+	border: 2px solid white;
+	background-color: slateblue;
+	padding: 15px;
+	color: white;
+	outline: none;
+	border-radius: 15px;
+	font-size: calc(5px + 1vw);
+	line-height: 80%;
+	box-shadow: 0 0 30px 0 darkviolet;
+}
+
+.textfield:hover,
+.textfield:hover label {
+	background-color: blueviolet;
+}
+
+label {
+	position: absolute;
+	font-weight: 400;
+	text-transform: uppercase;
+	font-size: 1.2vw;
+	color: white;
+	width: 30%;
+	height: 4px;
+	background: slateblue;
+	top: 0;
+	left: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transform: translate(-50%, -50%);
+}
+
+form {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	flex-direction: column;
+	align-items: center;
+	padding: 2vw 6vw;
+	justify-content: space-evenly;
+}
+
+.fieldContainer {
+	display: flex;
+	position: relative;
+	width: 100%;
+}
+
+.submit-button {
+	padding: 2vh 3vw;
+	border-radius: 15px;
+	border: 2px solid steelblue;
+	background-color: white;
+	font-family: inherit;
+	font-size: medium;
+	text-transform: uppercase;
+	color: steelblue;
+	font-weight: 600;
+}
+.submit-button:hover {
+	box-shadow: 0 0 15px 0px gray;
+	text-shadow: 0 0 1px slateblue;
+}
+.submit-button:active {
+	transform: scale(0.98);
+}
+input:-webkit-autofill {
+	box-shadow: 0 0 0 50px blueviolet inset; /* Change the color to your own background color */
+	-webkit-text-fill-color: white;
+}
+
+input:-webkit-autofill:focus {
+	box-shadow: 0 0 0 50px blueviolet inset; /*your box-shadow*/
+	-webkit-text-fill-color: white;
+}

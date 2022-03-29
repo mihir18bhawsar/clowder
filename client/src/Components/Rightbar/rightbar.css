@@ -1,0 +1,6 @@
+.rightContainer {
+	width: 100%;
+	display: flex;
+	flex: 1;
+	background-color: white;
+}

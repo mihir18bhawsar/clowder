@@ -1,0 +1,52 @@
+.post-container {
+	width: 100%;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	background-color: white;
+	color: blueviolet;
+	padding: 1vw;
+	border-radius: 30px;
+}
+
+.post-bottom {
+	padding: 1vw;
+	background-color: blueviolet;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	border-radius: 20px;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.description {
+	font-size: 14px;
+	font-weight: 500;
+	font-variant: small-caps;
+	color: white;
+	flex: 2;
+}
+.post-buttons {
+	flex: 1;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+.username {
+	font-weight: 700;
+}
+
+.top-section {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 1vw;
+}
+
+.time {
+	font-weight: 600;
+	font-size: small;
+}

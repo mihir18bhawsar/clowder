@@ -1,0 +1,38 @@
+.feed-container {
+	display: flex;
+	flex: 2;
+	width: 100%;
+	flex-direction: column;
+	align-items: center;
+}
+
+.createPostBtn {
+	padding: 0.5vw 3vw;
+	font-size: larger;
+	font-weight: 700;
+	outline: none;
+	border: none;
+	background-color: white;
+	align-self: flex-start;
+	margin: 1vw 2vw;
+	color: blueviolet;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+}
+.createPostBtn:hover {
+	box-shadow: 0px 0px 10px 0px white;
+}
+.createPostBtn:active {
+	box-shadow: none;
+	transform: scale(0.99);
+}
+
+.postListContainer {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 2vw;
+	overflow-y: scroll;
+}

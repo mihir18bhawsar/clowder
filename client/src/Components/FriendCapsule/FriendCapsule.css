@@ -1,0 +1,34 @@
+.capsule-container .profileContainer {
+	margin: 0 0.5vw;
+	display: flex;
+	flex: 1;
+}
+
+.capsule-container .profileContainer img {
+	width: 30px;
+	height: 30px;
+	box-sizing: content-box;
+	border: 3px solid white;
+	border-radius: 50%;
+}
+
+.capsule-container {
+	width: 100%;
+	height: 50px;
+	border-radius: 35px;
+	color: white;
+	background-color: darkviolet;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin: 0.5vw 0;
+	justify-content: center;
+}
+.friendName {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 600;
+	flex: 6;
+	font-size: calc(5px + 0.8vw);
+}

@@ -1,0 +1,96 @@
+.home-container {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+main {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: space-between;
+	background: linear-gradient(to bottom right, blueviolet, steelblue);
+	color: white;
+}
+#first-page-container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+}
+
+.half {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	align-items: center;
+}
+.heading {
+	transform: translate(0, -50%);
+	margin-top: 30vh;
+	font-weight: 900;
+	font-size: 10vw;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	font-variant: small-caps;
+	text-shadow: 0 0 2px white;
+}
+
+.short {
+	font-weight: 700;
+	font-size: 4vw;
+}
+
+.heading span {
+	display: flex;
+	align-self: center;
+	position: absolute;
+	font-size: 2vw;
+	transform: translate(50%, 350%);
+}
+
+.buttons-container {
+	background-color: transparent;
+	width: 70%;
+	height: 20%;
+	border-radius: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.buttons-container .uibuttons {
+	margin: 0 0.8vw;
+	width: 70%;
+	height: calc(20% + 1vw);
+	font-family: inherit;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	font-weight: 500;
+	background: linear-gradient(to bottom right, blueviolet, steelblue);
+	font-size: calc(2px + 1vw);
+	padding: 2vw;
+	border-radius: 1px;
+	box-shadow: none;
+	border: 3px solid white;
+}
+.buttons-container .uibuttons:hover {
+	box-shadow: 0 0 30px 0 gray;
+	text-shadow: 0 0 2px gray;
+}
+.buttons-container .uibuttons:active {
+	box-shadow: none;
+	transform: scale(0.99);
+}
+
+.button-link {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-decoration: none;
+	width: 100%;
+	height: 100%;
+}
