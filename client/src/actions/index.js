@@ -1,6 +1,7 @@
 import authentication from "./authentication";
 import messageAndError from "./messageAndError";
 import user from "./user";
+import post from "./post";
 
 export const login = authentication.login;
 export const logout = authentication.logout;
@@ -16,3 +17,6 @@ export const getUser = user.getUser;
 export const getFollowers = user.getFollowers;
 export const getFollowing = user.getFollowing;
 export const getMeAndMore = user.getMeAndMore;
+
+export const createPost = post.createPost;
+export const getPosts = post.getPosts;

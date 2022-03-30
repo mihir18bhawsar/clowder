@@ -73,7 +73,7 @@ class Profile extends React.Component {
 					style={{
 						backgroundImage: `url(${
 							process.env.PUBLIC_URL
-						}/userImages/${
+						}/images/${
 							this.props.user
 								? this.props.user.coverPicture
 								: "home-cover.png"
@@ -89,7 +89,7 @@ class Profile extends React.Component {
 		return (
 			<img
 				className="user-profile-image"
-				src={`${process.env.PUBLIC_URL}/userImages/${
+				src={`${process.env.PUBLIC_URL}/images/${
 					this.props.user
 						? this.props.user.profilePicture
 						: "default.jpg"

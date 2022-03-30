@@ -66,7 +66,7 @@ class Topbar extends React.Component {
 			<Link to="/profile">
 				<div className="profileContainer">
 					<img
-						src={process.env.PUBLIC_URL + "/userImages/default.jpg"}
+						src={process.env.PUBLIC_URL + "/images/default.jpg"}
 						alt="profilepic"
 					/>
 				</div>

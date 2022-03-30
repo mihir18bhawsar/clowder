@@ -17,7 +17,7 @@ app.use(express.json({ limit: "10kb" }));
 app.use(helmet());
 app.use(cors());
 app.use(morgan("dev"));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "../client/public")));
 
 app.get("/api/profile/:username", getUserPosts);
 app.use("/api/users", userRouter);

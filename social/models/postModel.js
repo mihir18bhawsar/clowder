@@ -4,7 +4,6 @@ const postSchema = new mongoose.Schema(
 	{
 		image: {
 			type: String,
-			default: "default.jpg",
 		},
 		description: {
 			type: String,
@@ -23,7 +22,7 @@ const postSchema = new mongoose.Schema(
 );
 
 postSchema.pre("save", function (next) {
-	if (!(this.description && this.image))
+	if (!(this.description || this.image))
 		return next(new AppError(400, "post cant be empty"));
 	next();
 });

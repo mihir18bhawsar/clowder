@@ -20,7 +20,6 @@ class Login extends React.Component {
 		this.props.login(formValues);
 	};
 	renderInput = ({ input, meta, Type, Label, ClassName }) => {
-		console.log(meta);
 		return (
 			<div className="fieldContainer">
 				<label>{Label}</label>

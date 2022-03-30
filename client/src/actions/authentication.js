@@ -14,6 +14,11 @@ const login = ({ email, password }) => {
 			Cookies.set("token", resolved.data.token, {
 				expires: 1 / 24,
 			});
+			window.setTimeout(() => {
+				getState().auth.isLoggedIn = false;
+				getState().auth.token = "";
+				history.push("/login");
+			}, 1000 * 60 * 60);
 			history.push("/");
 		} catch (err) {
 			dispatch(

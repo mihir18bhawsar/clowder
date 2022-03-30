@@ -5,7 +5,7 @@ export default function FriendCapsule() {
 		<div className="capsule-container">
 			<div className="profileContainer">
 				<img
-					src={process.env.PUBLIC_URL + "/userimages/default.jpg"}
+					src={process.env.PUBLIC_URL + "/images/default.jpg"}
 					alt="profile"
 				/>
 			</div>
