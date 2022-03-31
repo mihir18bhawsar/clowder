@@ -17,6 +17,7 @@ export const getUser = user.getUser;
 export const getFollowers = user.getFollowers;
 export const getFollowing = user.getFollowing;
 export const getMeAndMore = user.getMeAndMore;
+export const getUserCache = user.getUserCache;
 
 export const createPost = post.createPost;
 export const getPosts = post.getPosts;

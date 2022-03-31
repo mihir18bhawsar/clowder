@@ -1,27 +1,36 @@
 import React from "react";
+import { connect } from "react-redux";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import "./Post.css";
+import { getPosts } from "../../actions";
 
 class Post extends React.Component {
+	componentDidMount() {
+		if (this.props.isLoggedIn) this.props.getPosts();
+	}
+	renderDescription() {
+		return <div className="description">{this.props.description}</div>;
+	}
+	renderImage() {
+		return (
+			<div className="post-image">
+				<img src={this.props.imagesrc} alt="postimage" />
+			</div>
+		);
+	}
 	render() {
 		return (
 			<div className="post-container">
 				<div className="top-section">
-					<div className="username">Vladimir Putin</div>
-					<div className="time">9 hrs ago</div>
+					<div className="username">{this.props.owner}</div>
+					<div className="time">{this.props.updatedAt}</div>
 				</div>
-				<div className="post-image"></div>
+				{this.props.imagesrc ? this.renderImage() : null}
 				<div className="post-bottom">
-					<div className="description">
-						Post is posted on x of december loremIpsum jasdkfjlasd
-						falksdjf aslkdfasdf aksdf jaklsjdf aklsdj fklasdj
-						flkasdj flkas dfkl jasdlkfj klasdj flkajsd flkja sdflk
-						ajsdlkf jdsalkf klasd fjlkasd jflkadsj flkasjd fklaj
-						sdflkj asdklfj aklsdjf klaj f
-					</div>
+					{this.props.description ? this.renderDescription() : null}
 					<div className="post-buttons">
 						<ThumbUpIcon />
 						<ThumbDownIcon />
@@ -32,4 +41,4 @@ class Post extends React.Component {
 		);
 	}
 }
-export default Post;
+export default connect(null, { getPosts })(Post);

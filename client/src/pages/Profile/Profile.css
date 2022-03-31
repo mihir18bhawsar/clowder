@@ -20,7 +20,7 @@
 	border-radius: 50%;
 	width: 30vh;
 	height: 30vh;
-	top: 40%;
+	top: 50%;
 	left: 50%;
 	position: absolute;
 	transform: translate(-50%, -50%);
@@ -29,8 +29,8 @@
 .cover-section {
 	display: flex;
 	width: 100vw;
-	height: 50%;
-	clip-path: circle(160vh at 50vw -125vh);
+	height: 60%;
+	clip-path: circle(160vh at 50vw -115vh);
 	z-index: 1;
 }
 .border-cover-section {
@@ -39,101 +39,144 @@
 	width: 100vw;
 	height: 100%;
 	z-index: 1;
-	clip-path: circle(161vh at 50vw -125vh);
+	clip-path: circle(161vh at 50vw -115vh);
 }
 
 .grid {
-	border-radius: 10vw 10vw 0 0;
 	width: 100%;
 	height: 100%;
-	margin: 0 10vw;
-	padding: 0;
-	display: grid;
-	background-color: white;
-	color: slateblue;
-	grid-template-columns: calc(100% / 3) calc(100% / 3) calc(100% / 3);
-	grid-template-rows: 15vh 20vh 15vh;
+	background-color: slateblue;
+	color: white;
 }
 .user-details {
+	position: relative;
+	top: 0px;
+	left: 0px;
 	height: 60vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	width: 80vw;
+	width: 100vw;
 }
 .grid-item {
-	place-self: center;
+	position: absolute;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+
+	align-items: center;
 	font-variant: small-caps;
-	border: 2px solid slateblue;
-	border-radius: 30%;
-	padding: 0.5vw;
+	transform: translate(-50%, -50%);
 }
 #username {
-	margin-left: 4vw;
-	align-self: flex-start;
 	font-weight: 700;
 	font-size: 4vw;
-	grid-area: 2/2 / span 1 / span 1;
+	line-height: 8vh;
 	text-transform: uppercase;
+	top: 50%;
+	left: 50%;
 }
+
+#age {
+	top: 80%;
+	left: 80%;
+	color: slateblue;
+	z-index: 1;
+	transform: translate(-50%, -50%) scale(0.9);
+}
+#age .profile-value {
+	color: slateblue;
+}
+#age hr {
+	border-color: slateblue;
+}
+
+.user-details hr {
+	border: 2px solid white;
+	border-radius: 50%;
+	margin: auto;
+}
+.grid-item hr {
+	width: 40%;
+	margin-bottom: 5%;
+}
+#username hr {
+	margin: 0;
+	width: 50%;
+}
+
 #email {
-	align-self: flex-end;
-	grid-area: 3/1 / span 1 / span 2;
+	top: 65%;
+	left: 50%;
+	color: #ddd;
+	font-weight: 600;
+	font-size: 1.8vw;
+}
+
+#following {
+	left: 10%;
+	top: 40%;
 }
 #followers {
-	grid-area: 1 / 3 / span 1 / span 1;
+	left: 30%;
+	top: 40%;
 }
+
 #about {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 60%;
-	grid-area: 2/1 / span 2 / span 3;
+	background-color: white;
+	color: slateblue;
+	padding: 0 2%;
+	border-radius: 50px;
+	left: 80%;
+	top: 60%;
+	width: 35%;
+	height: 70%;
+}
+#about .about {
+	color: #555;
+	font-weight: 600;
 }
 #country {
-	grid-area: 2 / 1 / span 1 / span 1;
+	top: 70%;
+	left: 10%;
 }
 
 #relationship {
-	grid-area: 2 / 3 / span 1 / span 1;
+	left: 30%;
+	top: 70%;
 }
 
 .profile-key {
 	font-weight: 700;
 	font-size: 2.4vw;
 	display: inline;
+	padding: 0 10%;
 }
 .profile-value {
-	color: #77d;
+	color: #ddd;
 	font-weight: 600;
 	font-size: 1.8vw;
 	display: inline;
-	margin: 0 1vw;
 }
 #small-username {
-	text-align: center;
-	top: 50%;
-	transform: translate(0%, -50%);
-	left: 100%;
-	margin: 0 2vw;
 	font-size: 1.5vw;
 }
 
-.noProperty {
-	border: none;
-}
 .profile-form-button {
 	position: absolute;
-	bottom: 2%;
-	left: 60%;
-	width: 10vw;
-	height: 6vh;
-	background-color: slateblue;
-	color: white;
+	transform: translate(-50%, -50%);
+	bottom: 5%;
+	left: 50%;
+	padding: 0.8% 2%;
+	text-transform: uppercase;
+	background-color: white;
+	color: slateblue;
+	display: flex;
+	align-items: center;
 	outline: none;
 	border: none;
-	font-weight: 600;
-	font-size: calc(1.4vw + 5px);
+	font-weight: 700;
+	font-size: calc(0.7vw + 5px);
 	border-radius: 15px;
 }

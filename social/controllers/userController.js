@@ -151,7 +151,7 @@ return following*/
 exports.createPost = catchAsync(async (req, res, next) => {
 	const post = await Post.create({
 		description: req.body.description,
-		image: req.body.image,
+		image: req.body.imageName,
 		likes: [],
 		dislikes: [],
 		postedBy: req.user._id,

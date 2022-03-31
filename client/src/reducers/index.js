@@ -5,6 +5,7 @@ import errorReducer from "./errorReducer";
 import messageReducer from "./messageReducer";
 import userReducer from "./userReducer";
 import postReducer from "./postReducer";
+import cacheUserReducer from "./cacheUserReducer";
 
 export default combineReducers({
 	error: errorReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
 	form: formReducer,
 	message: messageReducer,
 	post: postReducer,
+	cacheUser: cacheUserReducer,
 });
