@@ -3,6 +3,8 @@ import authentication from "./authentication";
 import messageAndError from "./messageAndError";
 import history from "../history";
 
+const unfollow = (id) => async (dispatch) => {};
+
 const getFollowing = (id) => async (dispatch) => {
 	try {
 		const resolved = await social.get(`/users/${id}`);

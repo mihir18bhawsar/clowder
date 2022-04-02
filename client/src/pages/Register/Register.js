@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { messageShow, register } from "../../actions";
 import Background from "../../Components/Background/Background";
-import Topbar from "../../Components/Topbar/Topbar";
 import history from "../../history";
 import { Field, reduxForm } from "redux-form";
 
@@ -37,7 +36,6 @@ class Register extends React.Component {
 			<>
 				<Background />
 				<div className="login-container">
-					<Topbar />
 					<div className="authContainer">
 						<div className="login-heading">Register</div>
 						<div className="login-subheading">

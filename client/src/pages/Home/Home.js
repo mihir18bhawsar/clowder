@@ -3,7 +3,6 @@ import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import "./Home.css";
-import Topbar from "../../Components/Topbar/Topbar";
 import Feed from "../../Components/Feed/Feed";
 import Rightbar from "../../Components/Rightbar/Rightbar";
 import OnlineFriends from "../../Components/OnlineFriends/OnlineFriends";
@@ -47,7 +46,6 @@ class Home extends React.Component {
 	render() {
 		return (
 			<div className="home-container">
-				<Topbar />
 				<hr />
 				<main>
 					{this.props.isLoggedIn

@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import { login, messageShow } from "../../actions";
 import Background from "../../Components/Background/Background";
-import Topbar from "../../Components/Topbar/Topbar";
 import history from "../../history";
 
 import "./Login.css";
@@ -37,7 +36,6 @@ class Login extends React.Component {
 			<>
 				<Background />
 				<div className="login-container">
-					<Topbar />
 					<div className="authContainer">
 						<div className="login-heading">Login</div>
 						<div className="login-subheading">

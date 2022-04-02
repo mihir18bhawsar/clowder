@@ -4,7 +4,6 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { getMe, errorShow, getUserCache } from "../../actions";
 import history from "../../history";
-import Topbar from "../../Components/Topbar/Topbar";
 import "./Profile.css";
 import EditProfile from "../../Components/Modal/EditProfile/EditProfile";
 import { CircularProgress } from "@mui/material";
@@ -219,7 +218,6 @@ class Profile extends React.Component {
 		if (this.state.dataReady)
 			return (
 				<div className="userprofile-container">
-					<Topbar />
 					<div className="user-box">
 						{this.renderCoverPic()}
 						{this.renderProfilePic()}

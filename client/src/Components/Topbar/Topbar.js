@@ -15,11 +15,8 @@ class Topbar extends React.Component {
 				<Link to="/" className="navLink">
 					Feed
 				</Link>
-				<Link to="/" className="navLink">
-					Following
-				</Link>
-				<Link to="/" className="navLink">
-					Followers
+				<Link to="/chat" className="navLink">
+					Chat
 				</Link>
 				<Link to="/" onClick={this.props.logout} className="navLink">
 					Logout
