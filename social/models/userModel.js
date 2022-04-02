@@ -53,6 +53,7 @@ const userSchema = new mongoose.Schema(
 				message: "choose either single or married",
 			},
 		},
+		disabled: { type: Boolean, default: false },
 	},
 	{
 		timestamps: true,

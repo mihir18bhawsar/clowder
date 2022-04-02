@@ -1,14 +1,14 @@
 import React from "react";
 import { Search } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import { logout } from "../../actions";
+import { logout, getMe } from "../../actions";
 import { connect } from "react-redux";
 import "./topbar.css";
 
 class Topbar extends React.Component {
-	onClick = () => {
-		this.props.logout();
-	};
+	componentDidMount() {
+		if (this.props.isLoggedIn) this.props.getMe();
+	}
 	renderAuthenticatedNav = () => {
 		return (
 			<>
@@ -21,7 +21,7 @@ class Topbar extends React.Component {
 				<Link to="/" className="navLink">
 					Followers
 				</Link>
-				<Link to="/" onClick={this.onClick} className="navLink">
+				<Link to="/" onClick={this.props.logout} className="navLink">
 					Logout
 				</Link>
 			</>
@@ -62,13 +62,19 @@ class Topbar extends React.Component {
 		);
 	};
 	renderProfile = () => {
+		let profilePicPath;
+		if (this.props.me) {
+			profilePicPath =
+				process.env.PUBLIC_URL +
+				"/images/" +
+				this.props.me.profilePicture;
+		} else {
+			profilePicPath = process.env.PUBLIC_URL + "/images/default.jpg";
+		}
 		return (
 			<Link to="/profile">
 				<div className="profileContainer">
-					<img
-						src={process.env.PUBLIC_URL + "/images/default.jpg"}
-						alt="profilepic"
-					/>
+					<img src={profilePicPath} alt="pic" />
 				</div>
 			</Link>
 		);
@@ -95,7 +101,8 @@ class Topbar extends React.Component {
 const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: state.auth.isLoggedIn,
+		me: state.user.me,
 	};
 };
 
-export default connect(mapStateToProps, { logout })(Topbar);
+export default connect(mapStateToProps, { logout, getMe })(Topbar);

@@ -1,5 +1,7 @@
 import social from "../apis/social";
+import authentication from "./authentication";
 import messageAndError from "./messageAndError";
+import history from "../history";
 
 const getFollowing = (id) => async (dispatch) => {
 	try {
@@ -79,6 +81,10 @@ const getMe = () => async (dispatch) => {
 		const response = await social.get(`/users/me`);
 		dispatch({ type: "GET_ME", payload: response.data.data.user });
 	} catch (err) {
+		if (err.response.status === 404) {
+			dispatch(authentication.logout());
+			history.push("/login");
+		}
 		dispatch(
 			messageAndError.errorShow(
 				err.response?.status || 500,
@@ -92,9 +98,9 @@ const getMeAndMore = () => async (dispatch) => {
 		// dont forget, every action triggers a state change
 		const response = await social.get(`/users/me`);
 		dispatch({ type: "GET_USER", payload: response.data.data.user });
-		await dispatch(getMe());
 		await dispatch(getFollowing(response.data.data.user._id));
 		await dispatch(getFollowers(response.data.data.user._id));
+		await dispatch(getMe());
 	} catch (err) {
 		dispatch(
 			messageAndError.errorShow(
@@ -119,6 +125,26 @@ const getUserCache = (id) => async (dispatch) => {
 	}
 };
 
+const updateMe = (formData) => async (dispatch) => {
+	try {
+		const user = await social.patch(`/users`, formData, {
+			headers: {
+				"Content-Type": "multipart/form-data",
+			},
+		});
+		history.push("/profile");
+		dispatch({ type: "UPDATE_ME", payload: user.data.data.user });
+		dispatch(messageAndError.messageShow("Updated Successfully"));
+	} catch (err) {
+		dispatch(
+			messageAndError.errorShow(
+				err.response?.status || 500,
+				err.response?.data.message || "server unavailable"
+			)
+		);
+	}
+};
+
 const exp = {
 	getFollowing,
 	getFollowers,
@@ -126,5 +152,6 @@ const exp = {
 	getUser,
 	getMeAndMore,
 	getUserCache,
+	updateMe,
 };
 export default exp;

@@ -5,26 +5,53 @@ import en from "javascript-time-ago/locale/en.json";
 import Modal from "../Modal/CreatePost/CreatePost";
 import Post from "../Post/Post";
 import { getPosts, getMeAndMore } from "../../actions";
+import CircularProgress from "@mui/material/CircularProgress";
 import "./feed.css";
 
 TimeAgo.addDefaultLocale(en);
 
 class Feed extends React.Component {
-	state = { modalActive: false };
+	_isMounted = false;
+	state = { modalActive: false, dataReady: false };
+	dataloader = async () => {
+		await this.props.getMeAndMore();
+		await this.props.getPosts();
+	};
 
 	componentDidMount() {
+		this._isMounted = true;
 		if (this.props.isLoggedIn) {
-			this.props.getMeAndMore();
-			this.props.getPosts();
+			this.dataloader().then(() => {
+				if (this._isMounted) this.setState({ dataReady: true });
+				console.log("data ready");
+			});
 		}
 	}
+	componentWillUnmount() {
+		this._isMounted = false;
+	}
 	renderPostList = () => {
+		let timeline;
+		if (this.props.posts) {
+			timeline = this.props.posts.timeline;
+		}
+		if (Object.values(timeline).length === 0)
+			return (
+				<h1 id="nopost">
+					<span id="nopost-span">Nothing in Timeline</span>
+					<br />
+					<hr />
+					Follow Users or Create a Post
+				</h1>
+			);
 		const timeAgo = new TimeAgo();
-		const posts = this.props.timeline.map((post) => {
+		const posts = Object.values(timeline).map((post) => {
 			const updatedAt =
 				timeAgo.format(new Date(post.updatedAt).getTime(), "mini") +
 				" ago";
-			const owner = this.props.users[post.postedBy].username;
+			const owner = !this.props.users[post.postedBy].disabled
+				? this.props.users[post.postedBy].username
+				: "[deleted user]";
 			let imagesrc;
 			if (post.image)
 				imagesrc = `${process.env.PUBLIC_URL}/images/${post.image}`;
@@ -45,7 +72,7 @@ class Feed extends React.Component {
 		this.setState({ modalActive: !this.state.modalActive });
 	};
 	render() {
-		if (Object.keys(this.props.users).length)
+		if (this.state.dataReady) {
 			return (
 				<div className="feed-container">
 					<button
@@ -64,28 +91,25 @@ class Feed extends React.Component {
 						/>
 					) : null}
 					<div className="postListContainer">
-						{!this.props.timeline.length ? (
-							<h1 id="nopost">
-								<span id="nopost-span">
-									Nothing in Timeline
-								</span>
-								<br />
-								<hr />
-								Follow Users or Create a Post
-							</h1>
-						) : null}
 						{this.renderPostList()}
 					</div>
 				</div>
 			);
-		else return "loading...";
+		} else
+			return (
+				<div className="feed-container">
+					<div className="circular">
+						<CircularProgress color="inherit" />
+					</div>
+				</div>
+			);
 	}
 }
 
 const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: state.auth.isLoggedIn,
-		timeline: state.post.timeline,
+		posts: state.post,
 		users: state.user,
 	};
 };

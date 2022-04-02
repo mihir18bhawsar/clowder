@@ -3,14 +3,33 @@ const User = require("../models/userModel");
 const Post = require("../models/postModel");
 const AppError = require("../utils/AppError");
 exports.update = catchAsync(async (req, res, next) => {
-	const user = await User.findByIdAndUpdate(
-		req.params.id,
-		Object.assign(req.body, { isAdmin: false }),
-		{
-			runValidators: true,
-			new: true,
+	let user;
+	if (req.params.user) {
+		if (req.user.isAdmin) {
+			user = await User.findOneAndUpdate(
+				{
+					$or: [
+						{ _id: req.params.user },
+						{ username: req.params.user },
+					],
+				},
+				Object.assign(req.body, { isAdmin: false }),
+				{
+					runValidators: true,
+					new: true,
+				}
+			);
 		}
-	);
+	} else {
+		user = await User.findOneAndUpdate(
+			{ _id: req.user._id },
+			Object.assign(req.body, { isAdmin: false }),
+			{
+				runValidators: true,
+				new: true,
+			}
+		);
+	}
 	if (!user) return next(new AppError(404, "no user found"));
 	res.status(200).json({ status: "success", data: { user } });
 });

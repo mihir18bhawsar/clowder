@@ -6,7 +6,7 @@
 	justify-content: center;
 	color: white;
 	position: absolute;
-	z-index: 2;
+	z-index: 4;
 	width: 50vw;
 	height: 100px;
 	background-color: slategrey;

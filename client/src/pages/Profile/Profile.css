@@ -180,3 +180,9 @@
 	font-size: calc(0.7vw + 5px);
 	border-radius: 15px;
 }
+.profile-form-button:hover {
+	box-shadow: 0 0 10px 1px white;
+}
+.profile-form-button:active {
+	transform: translate(-50%, -50%) scale(0.95);
+}

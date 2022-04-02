@@ -2,6 +2,10 @@ import history from "../history";
 
 const errorShow = (errcode, message) => async (dispatch) => {
 	if (errcode === 401) history.push("/login");
+	if (errcode === 404 || errcode === 403) {
+		history.push("../");
+	}
+
 	dispatch({ type: "ERROR_SHOW", payload: message });
 	window.setTimeout(() => {
 		dispatch(errorClose());
@@ -22,5 +26,5 @@ const messageClose = () => {
 	return { type: "MESSAGE_CLOSE", payload: null };
 };
 
-const exp =  { errorShow, errorClose, messageShow, messageClose };
+const exp = { errorShow, errorClose, messageShow, messageClose };
 export default exp;

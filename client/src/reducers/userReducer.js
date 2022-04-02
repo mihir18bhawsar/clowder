@@ -12,6 +12,8 @@ const red = (state = INITIAL_STATE, action) => {
 		case "GET_FOLLOWERS": {
 			return { ...state, ...action.payload };
 		}
+		case "UPDATE_ME":
+			return { ...state, me: action.payload };
 		default:
 			return state;
 	}

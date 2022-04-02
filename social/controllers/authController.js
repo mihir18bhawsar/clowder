@@ -102,7 +102,8 @@ exports.login = catchAsync(async (req, res, next) => {
 	const user = await User.findOne({ email: req.body.email }).select(
 		"+password"
 	);
-	if (!user) return next(new AppError(404, "User not found"));
+	if (!user || user.disabled)
+		return next(new AppError(404, "User not found"));
 
 	const passwordCorrect = await bcrypt.compare(
 		req.body.password,

@@ -8,8 +8,12 @@ const createPost = (formData) => async (dispatch) => {
 				"Content-Type": "multipart/form-data", //req.body cant handle this user multer
 			},
 		});
-		dispatch({ type: "CREATE_POST", payload: post.data.data.post });
 		history.push("/");
+		dispatch({
+			type: "CREATE_POST",
+			payload: { [post.data.data.post._id]: post.data.data.post },
+		});
+		dispatch(messageAndError.messageShow("post created"));
 	} catch (err) {
 		dispatch(
 			messageAndError.errorShow(
@@ -22,7 +26,20 @@ const createPost = (formData) => async (dispatch) => {
 
 const getPosts = () => async (dispatch) => {
 	const posts = await social.get("/posts");
-	dispatch({ type: "GET_POSTS", payload: posts.data.data });
+	const myPosts = posts.data.data.myPosts;
+	const timeline = posts.data.data.timeline;
+	const mypostsArray = myPosts.map((post) => {
+		return { [post._id]: post };
+	});
+	const timelineArray = timeline.map((post) => {
+		return { [post._id]: post };
+	});
+	const myPostsObject = Object.assign({}, ...mypostsArray);
+	const timelineObject = Object.assign({}, ...timelineArray);
+	dispatch({
+		type: "GET_POSTS",
+		payload: { me: myPostsObject, timeline: timelineObject },
+	});
 };
 
 const exp = { createPost, getPosts };

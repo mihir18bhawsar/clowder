@@ -8,30 +8,36 @@ import "./CreatePost.css";
 import history from "../../../history";
 
 class CreatePost extends React.Component {
+	constructor(props) {
+		super(props);
+		this.modalref = React.createRef();
+		this.innerref = React.createRef();
+	}
+
 	modalClickHandle = () => {
 		this.props.modalToggle();
 		history.push("/");
 	};
 	innerClickHandle = (e) => {
-		if (document.querySelector(".authContainer").contains(e.target)) {
+		if (this.innerref.current.contains(e.target)) {
 			e.stopPropagation();
 		}
 	};
 	componentDidMount() {
-		document
-			.querySelector(".modal")
-			.addEventListener("click", (e) => this.modalClickHandle());
-		document
-			.querySelector(".authContainer")
-			.addEventListener("click", (e) => this.innerClickHandle(e));
+		this.modalref.current.addEventListener("click", (e) =>
+			this.modalClickHandle()
+		);
+		this.innerref.current.addEventListener("click", (e) =>
+			this.innerClickHandle(e)
+		);
 	}
 	componentWillUnmount() {
-		document
-			.querySelector(".modal")
-			.removeEventListener("click", (e) => this.modalClickHandle());
-		document
-			.querySelector(".authContainer")
-			.removeEventListener("click", (e) => this.innerClickHandle(e));
+		this.modalref.current.removeEventListener("click", (e) =>
+			this.modalClickHandle()
+		);
+		this.innerref.current.removeEventListener("click", (e) =>
+			this.innerClickHandle(e)
+		);
 	}
 
 	onSubmit = (formValues) => {
@@ -40,6 +46,7 @@ class CreatePost extends React.Component {
 			formData.append("description", formValues.description);
 		if (formValues.image) formData.append("image", formValues.image);
 		this.props.createPost(formData);
+		this.props.modalToggle();
 	};
 
 	handleFileChange = (event, input) => {
@@ -98,8 +105,8 @@ class CreatePost extends React.Component {
 	};
 	render() {
 		return ReactDOM.createPortal(
-			<div className="modal">
-				<div className="authContainer">
+			<div className="modal" ref={this.modalref}>
+				<div className="authContainer" ref={this.innerref}>
 					<div className="login-heading">
 						{this.props.heading || "form"}
 					</div>

@@ -17,6 +17,12 @@ const login = ({ email, password }) => {
 			window.setTimeout(() => {
 				getState().auth.isLoggedIn = false;
 				getState().auth.token = "";
+				dispatch(
+					messageAndError.errorShow(
+						401,
+						"session expired login again"
+					)
+				);
 				history.push("/login");
 			}, 1000 * 60 * 60);
 			history.push("/");

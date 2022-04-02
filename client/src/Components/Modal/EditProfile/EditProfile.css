@@ -1,0 +1,99 @@
+.modal {
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: transparent;
+	backdrop-filter: blur(15px) brightness(70%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 2;
+}
+#epform {
+	width: 100%;
+	height: 100%;
+}
+#epform label {
+	width: 15vw;
+}
+
+.modal #epform {
+	overflow-y: scroll;
+}
+
+.modal #epform::-webkit-scrollbar {
+	display: none;
+}
+.fileChoose {
+	text-align: center;
+}
+
+.modal .div {
+	width: 100%;
+}
+
+textarea {
+	font-size: small !important;
+	line-height: 1.5 !important;
+	height: 100%;
+}
+.textarea-container {
+	width: 100%;
+	height: 120%;
+	padding: 25px 0;
+}
+
+#epform .fieldContainer {
+	margin: 3vh;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.modal .gapped {
+	height: 10vh;
+	width: 50%;
+	position: relative;
+}
+.modal .gapped::after {
+	content: "Upload File";
+	color: steelblue;
+	font-weight: 500;
+	font-size: small;
+	pointer-events: none;
+	position: absolute;
+	z-index: 2;
+	width: 100%;
+	height: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: white;
+	border-radius: 10px;
+}
+.modal .gapped :hover {
+	box-shadow: 0 0 20px 0px white;
+}
+
+input[type="date"] {
+	background-color: white;
+	padding: 2vh;
+	position: absolute;
+	transform: translate(-50%, 50%);
+	top: 50%;
+	border: none;
+	outline: none;
+	left: 50%;
+	font-weight: 700;
+	color: slateblue;
+	border-radius: 20px;
+}
+
+input[type="date"]:hover {
+	box-shadow: 0 0 10px 0 white;
+}
+
+#epform .submit-button {
+	margin-top: 15vh;
+}

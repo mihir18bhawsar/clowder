@@ -6,8 +6,29 @@ import { getMe, errorShow, getUserCache } from "../../actions";
 import history from "../../history";
 import Topbar from "../../Components/Topbar/Topbar";
 import "./Profile.css";
+import EditProfile from "../../Components/Modal/EditProfile/EditProfile";
+import { CircularProgress } from "@mui/material";
 class Profile extends React.Component {
+	_ismounted = false;
+	constructor(props) {
+		super(props);
+		this.state = { EPActive: false, dataReady: false, follows: null };
+	}
+
+	dataLoader = async () => {
+		if (this.props.location.pathname === "/profile") {
+			await this.props.getMe();
+		}
+		if (this.props.match.params.user && !this.props.isLoggedIn) {
+			await this.props.getUserCache(this.props.match.params.user);
+		}
+		if (this.props.match.params.user && this.props.isLoggedIn) {
+			await this.props.getUserCache(this.props.match.params.user);
+			await this.props.getMe();
+		}
+	};
 	componentDidMount() {
+		this._ismounted = true;
 		if (
 			!this.props.isLoggedIn &&
 			this.props.location.pathname === "/profile"
@@ -15,29 +36,76 @@ class Profile extends React.Component {
 			this.props.errorShow(401, "Login required");
 			history.push("/login");
 		}
-		if (this.props.location.pathname === "/profile") {
-			this.props.getMe();
-		}
-		if (this.props.match.params.user && !this.props.isLoggedIn) {
-			this.props.getUserCache(this.props.match.params.user);
-		}
-		if (this.props.match.params.user && this.props.isLoggedIn) {
-			this.props.getMe();
-			this.props.getUserCache(this.props.match.params.user);
+		this.dataLoader().then(() => {
+			console.log("data ready");
+			if (this._ismounted) this.setState({ dataReady: true });
+		});
+	}
+	componentWillUnmount() {
+		this._ismounted = false;
+	}
+	EPToggle = () => {
+		this.setState({ EPActive: !this.state.EPActive });
+	};
+
+	handleFollowToggle() {
+		if (this.props.me.following.includes(this.props.user._id)) {
 		}
 	}
-	renderProfileButton = () => {
-		if (
-			this.props.user.username === this.props.match.params.user ||
-			this.props.user._id === this.props.match.params.user
-		)
+	renderFollowUnfollowButton() {
+		if (this.props.me.following.includes(this.props.user._id)) {
 			return (
-				<button className="profile-form-button">
+				<>
+					<RemoveIcon />
+					Unfollow
+				</>
+			);
+		} else {
+			return (
+				<>
 					<AddIcon />
 					Follow
+				</>
+			);
+		}
+	}
+
+	renderProfileButton = () => {
+		if (
+			this.props.location.pathname === "/profile" ||
+			this.props.match.params.user === this.props.me._id ||
+			this.props.match.params.user === this.props.me.username
+		) {
+			return (
+				<>
+					<button
+						className="profile-form-button"
+						onClick={() => this.EPToggle()}
+					>
+						Edit
+					</button>
+					{this.state.EPActive ? (
+						<EditProfile
+							modalToggle={this.EPToggle}
+							initialValues={{
+								...this.props.me,
+								dob: this.props.me.dob?.split("T")[0],
+							}}
+						/>
+					) : null}
+				</>
+			);
+		} else
+			return (
+				<button
+					className="profile-form-button"
+					onClick={(e) => {
+						this.handleFollowToggle();
+					}}
+				>
+					{this.renderFollowUnfollowButton()}
 				</button>
 			);
-		else return <button className="profile-form-button">Edit</button>;
 	};
 	renderUserDetails = () => {
 		if (this.props.user)
@@ -105,7 +173,7 @@ class Profile extends React.Component {
 								{this.props.user.relationship || "unspecified"}
 							</div>
 						</li>
-						{this.props.isLoggedIn
+						{this.props.isLoggedIn && this.props.me
 							? this.renderProfileButton()
 							: null}
 					</ul>
@@ -148,16 +216,24 @@ class Profile extends React.Component {
 		);
 	};
 	render() {
-		return (
-			<div className="userprofile-container">
-				<Topbar />
-				<div className="user-box">
-					{this.renderCoverPic()}
-					{this.renderProfilePic()}
-					{this.renderUserDetails()}
+		if (this.state.dataReady)
+			return (
+				<div className="userprofile-container">
+					<Topbar />
+					<div className="user-box">
+						{this.renderCoverPic()}
+						{this.renderProfilePic()}
+						{this.renderUserDetails()}
+					</div>
 				</div>
-			</div>
-		);
+			);
+		else {
+			return (
+				<div className="circular">
+					<CircularProgress />
+				</div>
+			);
+		}
 	}
 }
 
