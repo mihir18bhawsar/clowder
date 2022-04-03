@@ -14,6 +14,7 @@ import history from "./history";
 import ErrorBlock from "./Components/ErrorBlock/ErrorBlock";
 import MessageBlock from "./Components/MessageBlock/MessageBlock";
 import Topbar from "./Components/Topbar/Topbar";
+import MyPosts from "./pages/MyPosts/MyPosts";
 
 class App extends React.Component {
 	render() {
@@ -34,6 +35,7 @@ class App extends React.Component {
 							component={Profile}
 						/>
 						<Route exact path="/chat" component={Chat} />
+						<Route exact path="/my-posts" component={MyPosts} />
 						<Route path="/" component={Unhandled} />
 					</Switch>
 				</Router>

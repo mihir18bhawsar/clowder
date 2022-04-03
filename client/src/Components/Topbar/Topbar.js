@@ -18,6 +18,9 @@ class Topbar extends React.Component {
 				<Link to="/chat" className="navLink">
 					Chat
 				</Link>
+				<Link to="/my-posts" className="navLink">
+					My Posts
+				</Link>
 				<Link to="/" onClick={this.props.logout} className="navLink">
 					Logout
 				</Link>

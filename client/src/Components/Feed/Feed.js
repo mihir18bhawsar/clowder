@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-
+import _ from "lodash";
 import Modal from "../Modal/CreatePost/CreatePost";
 import Post from "../Post/Post";
 import { getPosts, getMeAndMore } from "../../actions";
@@ -42,29 +42,42 @@ class Feed extends React.Component {
 				</h1>
 			);
 
-		const posts = Object.values(timeline).map((post) => {
-			const ownerName = !this.props.users[post.postedBy].disabled
-				? this.props.users[post.postedBy].username
-				: "[deleted user]";
-			const profilePic = `${process.env.PUBLIC_URL}/images/${
-				this.props.users[post.postedBy].profilePicture
-			}`;
-			let imagesrc;
-			if (post.image)
-				imagesrc = `${process.env.PUBLIC_URL}/images/${post.image}`;
-			const description = post.description;
-			return (
-				<Post
-					key={post._id}
-					ownerName={ownerName}
-					ownerId={post.postedBy}
-					imagesrc={imagesrc}
-					description={description}
-					profilePic={profilePic}
-					post={post}
-				/>
-			);
-		});
+		const posts = _.orderBy(Object.values(timeline), "createdAt")
+			.reverse()
+			.map((post) => {
+				if (
+					this.props.own &&
+					post.postedBy !== this.props.users["me"]._id
+				)
+					return null;
+				let ownerName;
+				ownerName = !this.props.users[post.postedBy].disabled
+					? this.props.users[post.postedBy].username
+					: "[deleted user]";
+				ownerName =
+					this.props.users[post.postedBy]._id ===
+					this.props.users["me"]._id
+						? "You"
+						: ownerName;
+				const profilePic = `${process.env.PUBLIC_URL}/images/${
+					this.props.users[post.postedBy].profilePicture
+				}`;
+				let imagesrc;
+				if (post.image)
+					imagesrc = `${process.env.PUBLIC_URL}/images/${post.image}`;
+				const description = post.description;
+				return (
+					<Post
+						key={post._id}
+						ownerName={ownerName}
+						ownerId={post.postedBy}
+						imagesrc={imagesrc}
+						description={description}
+						profilePic={profilePic}
+						post={post}
+					/>
+				);
+			});
 		return posts;
 	};
 	modalToggle = () => {
