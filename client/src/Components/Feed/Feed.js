@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import _ from "lodash";
+import AddIcon from "@mui/icons-material/Add";
 import Modal from "../Modal/CreatePost/CreatePost";
 import Post from "../Post/Post";
 import { getPosts, getMeAndMore } from "../../actions";
@@ -91,7 +92,8 @@ class Feed extends React.Component {
 						className="createPostBtn button"
 						onClick={this.modalToggle}
 					>
-						Create New Post
+						New Post
+						<AddIcon />
 					</button>
 					<hr />
 					{this.state.modalActive ? (

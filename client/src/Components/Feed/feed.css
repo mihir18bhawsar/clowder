@@ -42,13 +42,13 @@
 }
 
 .createPostBtn {
-	bottom: 0;
-	width: 35%;
+	bottom: 1%;
+	width: 30%;
 	display: flex;
 	justify-content: center;
 	left: 0%;
-	padding: 1.5vh 1vw;
-	font-size: calc(4px + 0.9vw);
+	padding: 1.2vh 0vw 1.2vh 1.2vh;
+	font-size: calc(8px + 0.9vw);
 	font-weight: 700;
 	position: absolute;
 	z-index: 2;
@@ -56,7 +56,7 @@
 	border: none;
 	background-color: white;
 	border: 4px solid slateblue;
-	box-shadow: 0 0 1vw 0.1vw slateblue;
+	box-shadow: 0 0 3vw 0.1vw slateblue;
 	align-self: center;
 	margin: 1vh 2vw;
 	color: slateblue;
@@ -65,11 +65,13 @@
 	align-items: center;
 }
 .createPostBtn:hover {
-	box-shadow: 0px 0px 10px 0px white;
+	/* box-shadow: 0px 0px 10px 0px white; */
+	transform: scale(1.01);
+	text-shadow: 0 0 1px slateblue;
 }
 .createPostBtn:active {
 	box-shadow: none;
-	transform: scale(0.99);
+	transform: scale(0.95);
 }
 
 .postListContainer {

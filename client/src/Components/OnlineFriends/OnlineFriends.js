@@ -6,12 +6,8 @@ class OnlineFriends extends React.Component {
 	renderList = () => {
 		return (
 			<>
-				<li>
-					<FriendCapsule />
-				</li>
-				<li>
-					<FriendCapsule />
-				</li>
+				<li>asjdfkas;djf</li>
+				<li>fkajdsklf;ja</li>
 			</>
 		);
 	};
