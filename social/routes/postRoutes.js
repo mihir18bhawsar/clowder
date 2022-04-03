@@ -43,8 +43,12 @@ router
 	.get(postController.getPost)
 	.patch(authController.protect, userController.updatePost)
 	.delete(authController.protect, userController.deletePost);
-router.post("/:id/like", authController.protect, userController.likePost);
-router.post("/:id/dislike", authController.protect, userController.dislikePost);
+router.patch("/:id/like", authController.protect, userController.likePost);
+router.patch(
+	"/:id/dislike",
+	authController.protect,
+	userController.dislikePost
+);
 router.get("/:id/likes", postController.getLikes);
 router.get("/:id/dislikes", postController.getDislikes);
 router

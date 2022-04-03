@@ -26,7 +26,7 @@ li {
 }
 /* width */
 ::-webkit-scrollbar {
-	width: 10px;
+	width: 7px;
 }
 
 /* Track */
@@ -37,11 +37,12 @@ li {
 /* Handle */
 ::-webkit-scrollbar-thumb {
 	background: blueviolet;
+	border-radius: 6px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-	background: violet;
+	background: #444;
 }
 
 .sidebar-title {

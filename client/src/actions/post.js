@@ -42,5 +42,35 @@ const getPosts = () => async (dispatch) => {
 	});
 };
 
-const exp = { createPost, getPosts };
+const like = (id) => async (dispatch) => {
+	try {
+		await social.patch(`/posts/${id}/like`);
+		await dispatch(getPosts());
+		dispatch({ type: "LIKE", payload: null });
+	} catch (err) {
+		dispatch(
+			messageAndError.errorShow(
+				err.response?.status || 500,
+				err.response?.data.message || "server unavailable"
+			)
+		);
+	}
+};
+
+const dislike = (id) => async (dispatch) => {
+	try {
+		await social.patch(`/posts/${id}/dislike`);
+		await dispatch(getPosts());
+		dispatch({ type: "DISLIKE", payload: null });
+	} catch (err) {
+		dispatch(
+			messageAndError.errorShow(
+				err.response?.status || 500,
+				err.response?.data.message || "server unavailable"
+			)
+		);
+	}
+};
+
+const exp = { createPost, getPosts, like, dislike };
 export default exp;

@@ -2,7 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { getMe, errorShow, getUserCache } from "../../actions";
+import {
+	getMe,
+	errorShow,
+	getUserCache,
+	unfollow,
+	follow,
+} from "../../actions";
 import history from "../../history";
 import "./Profile.css";
 import EditProfile from "../../Components/Modal/EditProfile/EditProfile";
@@ -11,7 +17,7 @@ class Profile extends React.Component {
 	_ismounted = false;
 	constructor(props) {
 		super(props);
-		this.state = { EPActive: false, dataReady: false, follows: null };
+		this.state = { EPActive: false, dataReady: false }; //these has to be manually triggered coz there is no other way. neither the redux state change will trigger this because that only rerenders the component with updated data. also the component did mount only runs once per component display. In case of profile page we are redirecting to the same page which does not trigger a component did mount.
 	}
 
 	dataLoader = async () => {
@@ -49,6 +55,9 @@ class Profile extends React.Component {
 
 	handleFollowToggle() {
 		if (this.props.me.following.includes(this.props.user._id)) {
+			this.props.unfollow(this.props.user._id);
+		} else {
+			this.props.follow(this.props.user._id);
 		}
 	}
 	renderFollowUnfollowButton() {
@@ -98,7 +107,7 @@ class Profile extends React.Component {
 			return (
 				<button
 					className="profile-form-button"
-					onClick={(e) => {
+					onClick={() => {
 						this.handleFollowToggle();
 					}}
 				>
@@ -172,7 +181,9 @@ class Profile extends React.Component {
 								{this.props.user.relationship || "unspecified"}
 							</div>
 						</li>
-						{this.props.isLoggedIn && this.props.me
+						{this.props.isLoggedIn &&
+						this.props.me &&
+						!this.props.user.disabled
 							? this.renderProfileButton()
 							: null}
 					</ul>
@@ -250,4 +261,6 @@ export default connect(mapStateToProps, {
 	errorShow,
 	getUserCache,
 	getMe,
+	follow,
+	unfollow,
 })(Profile);

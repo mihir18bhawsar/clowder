@@ -65,7 +65,7 @@ exports.followUser = catchAsync(async (req, res, next) => {
 		return next(new AppError(400, "You cant follow yourself"));
 	let user;
 	user = await User.findOne({ _id: req.params.id });
-	if (!user)
+	if (!user || user.disabled)
 		return next(
 			new AppError(404, "The user you're trying to follow doesn't exist")
 		);
@@ -79,7 +79,7 @@ exports.followUser = catchAsync(async (req, res, next) => {
 	await user.save();
 	res.status(200).json({
 		status: "updated",
-		message: `${me.username} followed ${user.username}`,
+		message: `You followed ${user.username}`,
 	});
 });
 /*
@@ -119,7 +119,7 @@ exports.unfollowUser = catchAsync(async (req, res, next) => {
 	await user.save();
 	res.status(200).json({
 		status: "updated",
-		message: `${me.username} unfollowed ${user.username}`,
+		message: `You unfollowed ${user.username}`,
 	});
 });
 /*

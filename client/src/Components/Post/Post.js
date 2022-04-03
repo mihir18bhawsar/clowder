@@ -1,15 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en.json";
 import "./Post.css";
-import { getPosts } from "../../actions";
+import { getMe, unfollow, like, dislike } from "../../actions";
+import { CircularProgress } from "@mui/material";
+
+TimeAgo.addDefaultLocale(en);
 
 class Post extends React.Component {
 	componentDidMount() {
-		if (this.props.isLoggedIn) this.props.getPosts();
+		if (this.props.isLoggedIn) {
+			this.props.getMe();
+		}
 	}
 	renderDescription() {
 		return <div className="description">{this.props.description}</div>;
@@ -21,24 +28,109 @@ class Post extends React.Component {
 			</div>
 		);
 	}
-	render() {
+
+	handleLike = () => {
+		this.props.like(this.props.post._id);
+	};
+	handleDislike = () => {
+		this.props.dislike(this.props.post._id);
+	};
+
+	renderPostBottom = () => {
+		const liked = this.props.post.likes.includes(this.props.me._id)
+			? "liked"
+			: "";
+		const disliked = this.props.post.dislikes.includes(this.props.me._id)
+			? "disliked"
+			: "";
+
+		const buttonClassname =
+			this.props.post.postedBy === this.props.me._id
+				? `mini-post-buttons disabled`
+				: `mini-post-buttons`;
 		return (
-			<div className="post-container">
-				<div className="top-section">
-					<div className="username">{this.props.owner}</div>
-					<div className="time">{this.props.updatedAt}</div>
-				</div>
-				{this.props.imagesrc ? this.renderImage() : null}
-				<div className="post-bottom">
-					{this.props.description ? this.renderDescription() : null}
-					<div className="post-buttons">
-						<ThumbUpIcon />
-						<ThumbDownIcon />
-						<PersonAddIcon />
+			<div className="post-bottom">
+				{this.props.description ? this.renderDescription() : null}
+				<div className="post-buttons">
+					<div className="mini-post-buttons-container">
+						<ThumbUpIcon
+							className={buttonClassname + " " + liked}
+							onClick={this.handleLike}
+						/>
+						{this.props.post.likes.length}
 					</div>
+					<div className="mini-post-buttons-container">
+						<ThumbDownIcon
+							className={buttonClassname + " " + disliked}
+							onClick={this.handleDislike}
+						/>
+						{this.props.post.dislikes.length}
+					</div>
+					{this.props.me.following.includes(this.props.ownerId) ? (
+						<div className="mini-post-buttons-container">
+							<PersonRemoveIcon
+								className={buttonClassname}
+								onClick={() => {
+									this.props.unfollow(this.props.ownerId);
+								}}
+							/>
+						</div>
+					) : null}
 				</div>
 			</div>
 		);
+	};
+	render() {
+		if (this.props.me) {
+			if (
+				this.props.me._id === this.props.ownerId ||
+				this.props.me.following.includes(this.props.ownerId)
+			) {
+				const timeAgo = new TimeAgo();
+				const createdAt =
+					timeAgo.format(
+						new Date(this.props.post.createdAt).getTime(),
+						"mini"
+					) + " ago";
+				return (
+					<div className="post-container">
+						<div className="top-section">
+							<Link
+								to={`/profile/${this.props.ownerName}`}
+								className="postProfileLink"
+							>
+								<img
+									className="propic"
+									src={this.props.profilePic}
+									alt="pic"
+								/>
+								<div className="username">
+									{this.props.ownerName}
+								</div>
+							</Link>
+							<div className="time">{createdAt}</div>
+						</div>
+						{this.props.imagesrc ? this.renderImage() : null}
+						{this.renderPostBottom()}
+					</div>
+				);
+			} else return null;
+		} else
+			return (
+				<div className="circular">
+					<CircularProgress color="inherit" />
+				</div>
+			);
 	}
 }
-export default connect(null, { getPosts })(Post);
+
+const mapStateToProps = (state) => {
+	return {
+		isLoggedIn: state.auth.isLoggedIn,
+		me: state.user["me"],
+	};
+};
+
+export default connect(mapStateToProps, { getMe, unfollow, like, dislike })(
+	Post
+);

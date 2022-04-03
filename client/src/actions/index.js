@@ -19,6 +19,10 @@ export const getFollowing = user.getFollowing;
 export const getMeAndMore = user.getMeAndMore;
 export const getUserCache = user.getUserCache;
 export const updateMe = user.updateMe;
+export const follow = user.follow;
+export const unfollow = user.unfollow;
 
 export const createPost = post.createPost;
 export const getPosts = post.getPosts;
+export const like = post.like;
+export const dislike = post.dislike;

@@ -1,14 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import TimeAgo from "javascript-time-ago";
-import en from "javascript-time-ago/locale/en.json";
+
 import Modal from "../Modal/CreatePost/CreatePost";
 import Post from "../Post/Post";
 import { getPosts, getMeAndMore } from "../../actions";
 import CircularProgress from "@mui/material/CircularProgress";
 import "./feed.css";
-
-TimeAgo.addDefaultLocale(en);
 
 class Feed extends React.Component {
 	_isMounted = false;
@@ -44,14 +41,14 @@ class Feed extends React.Component {
 					Follow Users or Create a Post
 				</h1>
 			);
-		const timeAgo = new TimeAgo();
+
 		const posts = Object.values(timeline).map((post) => {
-			const updatedAt =
-				timeAgo.format(new Date(post.updatedAt).getTime(), "mini") +
-				" ago";
-			const owner = !this.props.users[post.postedBy].disabled
+			const ownerName = !this.props.users[post.postedBy].disabled
 				? this.props.users[post.postedBy].username
 				: "[deleted user]";
+			const profilePic = `${process.env.PUBLIC_URL}/images/${
+				this.props.users[post.postedBy].profilePicture
+			}`;
 			let imagesrc;
 			if (post.image)
 				imagesrc = `${process.env.PUBLIC_URL}/images/${post.image}`;
@@ -59,10 +56,12 @@ class Feed extends React.Component {
 			return (
 				<Post
 					key={post._id}
-					owner={owner}
+					ownerName={ownerName}
+					ownerId={post.postedBy}
 					imagesrc={imagesrc}
 					description={description}
-					updatedAt={updatedAt}
+					profilePic={profilePic}
+					post={post}
 				/>
 			);
 		});

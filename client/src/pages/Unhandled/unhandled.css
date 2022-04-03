@@ -1,0 +1,17 @@
+.unhandled {
+	width: 100vw;
+	height: calc(100vh - 50px);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.unhandled .circular {
+	width: 90%;
+	height: 100%;
+	font-size: 10vw;
+	color: slateblue;
+	opacity: 0.6;
+	font-weight: 900;
+}

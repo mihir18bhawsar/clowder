@@ -3,7 +3,39 @@ import authentication from "./authentication";
 import messageAndError from "./messageAndError";
 import history from "../history";
 
-const unfollow = (id) => async (dispatch) => {};
+const unfollow = (id) => async (dispatch) => {
+	try {
+		const res = await social.patch(`/users/${id}/unfollow`);
+		dispatch(messageAndError.messageShow(res.data.message));
+		dispatch(getMe());
+		dispatch(getUserCache(id));
+		dispatch({ type: "UNFOLLOW_USER", payload: null });
+	} catch (err) {
+		dispatch(
+			messageAndError.errorShow(
+				err.response?.status || 500,
+				err.response?.data.message || "server unavailable"
+			)
+		);
+	}
+};
+
+const follow = (id) => async (dispatch) => {
+	try {
+		const res = await social.patch(`/users/${id}/follow`);
+		dispatch(messageAndError.messageShow(res.data.message));
+		dispatch(getUserCache(id));
+		dispatch(getMe());
+		dispatch({ type: "FOLLOW_USER", payload: null });
+	} catch (err) {
+		dispatch(
+			messageAndError.errorShow(
+				err.response?.status || 500,
+				err.response?.data.message || "server unavailable"
+			)
+		);
+	}
+};
 
 const getFollowing = (id) => async (dispatch) => {
 	try {
@@ -117,6 +149,7 @@ const getUserCache = (id) => async (dispatch) => {
 	try {
 		const response = await social.get(`/users/${id}`);
 		dispatch({ type: "CACHE_USER", payload: response.data.data.user });
+		dispatch(getUser(id));
 	} catch (err) {
 		dispatch(
 			messageAndError.errorShow(
@@ -155,5 +188,7 @@ const exp = {
 	getMeAndMore,
 	getUserCache,
 	updateMe,
+	follow,
+	unfollow,
 };
 export default exp;

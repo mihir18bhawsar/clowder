@@ -24,7 +24,7 @@
 }
 
 .post-bottom {
-	padding: 1vw;
+	padding: 1.3vw;
 	margin: 0 2.5%;
 	background-color: slateblue;
 	display: flex;
@@ -44,7 +44,7 @@
 	flex: 2;
 }
 .post-buttons {
-	flex: 1;
+	flex: 2;
 	color: white;
 	display: flex;
 	align-items: center;
@@ -52,6 +52,30 @@
 }
 .username {
 	font-weight: 700;
+	font-variant: small-caps;
+	font-size: 2.8vh;
+	align-self: center;
+	margin: 0 1vw;
+}
+
+.liked,
+.disliked {
+	border-radius: 6px;
+	border-bottom: 3px solid white;
+	padding: 3px;
+	box-sizing: content-box;
+}
+
+.liked:hover,
+.disliked:hover {
+	transform: scale(1) !important;
+}
+
+.disabled {
+	pointer-events: none;
+}
+.disabled:hover {
+	transform: scale(1);
 }
 
 .top-section {
@@ -59,10 +83,55 @@
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	padding: 0 1vw;
+	padding: 0vw 2vw 0 1vw;
+}
+
+.postProfileLink {
+	display: flex;
+	padding-right: 1vw;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	text-decoration: none;
+}
+.postProfileLink:hover {
+	text-shadow: 0 0 3px white;
+}
+
+img.propic {
+	width: calc(4.5vh + 1vw);
+	height: calc(4.5vh + 1vw);
+	padding: 0vw;
+	margin: 0 0.5vw 0vw 0vw;
+	box-sizing: border-box;
+	display: flex;
+	align-self: flex-start;
+	transition: 0.1s ease-in-out 50ms;
+}
+.postProfileLink:hover {
+	background-color: rgba(30, 0, 100, 0.01);
+	box-shadow: 0 0 40px 1px slateblue;
+	border-radius: 30px;
 }
 
 .time {
 	font-weight: 600;
 	font-size: small;
+}
+.mini-post-buttons-container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	font-size: calc(10px + 0.4vw);
+	margin: 0 6%;
+}
+.mini-post-buttons {
+	margin-right: 10%;
+	transition: 0.1s ease-in-out 0.01s !important;
+}
+.mini-post-buttons:hover {
+	transform: scale(1.2);
+}
+.mini-post-buttons:active {
+	transform: scale(0.98);
 }

@@ -14,6 +14,10 @@ const red = (state = INITIAL_STATE, action) => {
 		}
 		case "UPDATE_ME":
 			return { ...state, me: action.payload };
+		case "FOLLOW_USER":
+			return { ...state };
+		case "UNFOLLOW_USER":
+			return { ...state };
 		default:
 			return state;
 	}
