@@ -12,6 +12,9 @@
 	border-radius: 50%;
 }
 
+.capsule-link {
+	text-decoration: none;
+}
 .capsule-container {
 	width: 100%;
 	height: 45px;
@@ -26,6 +29,16 @@
 	justify-content: space-between;
 }
 
+.expanded {
+	margin: 0px;
+	padding: 0;
+}
+.expanded .capsule-container {
+	border-radius: 35px;
+	margin: 4px;
+	padding: 0;
+}
+
 .capsule-container:hover {
 	box-shadow: 0 0 10px 0 slateblue;
 }
@@ -35,7 +48,10 @@
 	align-items: center;
 	justify-content: center;
 	font-weight: 600;
+	text-shadow: none;
+	text-decoration: none;
+	font-variant: small-caps;
 	flex: 6;
 	margin-right: 10px;
-	font-size: calc(5px + 0.8vw);
+	font-size: calc(7px + 0.8vw);
 }

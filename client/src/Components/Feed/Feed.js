@@ -21,7 +21,6 @@ class Feed extends React.Component {
 		if (this.props.isLoggedIn) {
 			this.dataloader().then(() => {
 				if (this._isMounted) this.setState({ dataReady: true });
-				console.log("data ready");
 			});
 		}
 	}

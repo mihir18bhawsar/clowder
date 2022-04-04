@@ -20,7 +20,7 @@ class FriendCapsule extends React.Component {
 		if (this.props.user.disabled) return null;
 		return (
 			<Link
-				classname="capsule-link"
+				className="capsule-link expanded"
 				to={`/profile/${this.props.user.username}`}
 			>
 				<div className="capsule-container">

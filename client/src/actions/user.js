@@ -180,6 +180,20 @@ const updateMe = (formData) => async (dispatch) => {
 	}
 };
 
+const getSearchUsers = (term) => async (dispatch) => {
+	try {
+		const res = await social.get(`/users/search?term=${term}`);
+		dispatch({ type: "GET_SEARCH_USERS", payload: res.data.result });
+	} catch (err) {
+		dispatch(
+			messageAndError.errorShow(
+				err.response?.status || 500,
+				err.response?.data.message || "server unavailable"
+			)
+		);
+	}
+};
+
 const exp = {
 	getFollowing,
 	getFollowers,
@@ -190,5 +204,6 @@ const exp = {
 	updateMe,
 	follow,
 	unfollow,
+	getSearchUsers,
 };
 export default exp;

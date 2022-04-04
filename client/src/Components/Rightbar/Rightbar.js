@@ -19,7 +19,9 @@ class Rightbar extends React.Component {
 			}
 		});
 	}
-
+	componentWillUnmount() {
+		this._isMounted = false;
+	}
 	render() {
 		if (this.state.dataReady) {
 			const followingList = this.props.users.map((user) => {

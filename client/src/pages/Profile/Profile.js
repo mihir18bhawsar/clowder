@@ -42,10 +42,16 @@ class Profile extends React.Component {
 			history.push("/login");
 		}
 		this.dataLoader().then(() => {
-			console.log("data ready");
 			if (this._ismounted) this.setState({ dataReady: true });
 		});
 	}
+
+	componentDidUpdate(prevProps) {
+		if (this.props.match.params.user !== prevProps.match.params.user) {
+			history.go(`/profile/${this.props.match.params.user}`);
+		}
+	}
+
 	componentWillUnmount() {
 		this._ismounted = false;
 	}

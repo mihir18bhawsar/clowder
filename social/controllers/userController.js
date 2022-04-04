@@ -283,3 +283,26 @@ exports.getUserPosts = catchAsync(async (req, res, next) => {
 		},
 	});
 });
+
+exports.getSearchUsers = catchAsync(async (req, res, next) => {
+	const term = req.query.term;
+	const result = await User.aggregate([
+		{
+			$addFields: {
+				ismatched: {
+					$regexMatch: {
+						input: "$username",
+						regex: `${term}`,
+					},
+				},
+			},
+		},
+		{
+			$match: {
+				$and: [{ ismatched: true }, { disabled: false }],
+			},
+		},
+	]);
+
+	res.json({ status: "success", result });
+});

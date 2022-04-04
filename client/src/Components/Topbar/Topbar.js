@@ -1,5 +1,5 @@
 import React from "react";
-import { Search } from "@material-ui/icons";
+import SearchFriend from "../SearchFriend/SearchFriend";
 import { Link } from "react-router-dom";
 import { logout, getMe } from "../../actions";
 import { connect } from "react-redux";
@@ -49,17 +49,7 @@ class Topbar extends React.Component {
 		);
 	};
 	renderSearchBar = () => {
-		return (
-			<div className="search">
-				<div className="searchbar">
-					<Search className="searchIcon" />
-					<input
-						placeholder="Search for Friends"
-						className="searchInput"
-					/>
-				</div>
-			</div>
-		);
+		return <SearchFriend />;
 	};
 	renderProfile = () => {
 		let profilePicPath;

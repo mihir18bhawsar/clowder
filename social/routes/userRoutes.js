@@ -56,6 +56,9 @@ router.get(
 	authController.adminRightsCheck,
 	userController.getAllUsers
 );
+
+router.get("/search", authController.protect,userController.getSearchUsers);
+
 router
 	.route("/:user?")
 	.get(userController.checkUser, userController.getUser)
