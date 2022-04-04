@@ -23,13 +23,19 @@
 	align-items: center;
 	margin: 1vw 0;
 	padding: 1vh 1vh 1vh 0;
-	justify-content: center;
+	justify-content: space-between;
 }
+
+.capsule-container:hover {
+	box-shadow: 0 0 10px 0 slateblue;
+}
+
 .friendName {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	font-weight: 600;
 	flex: 6;
+	margin-right: 10px;
 	font-size: calc(5px + 0.8vw);
 }
