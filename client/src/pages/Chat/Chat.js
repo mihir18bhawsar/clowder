@@ -1,14 +1,15 @@
 import React from "react";
+import "./chat.css";
+
 import { CircularProgress } from "@mui/material";
 class Chat extends React.Component {
 	render() {
 		return (
-			<>
+			<div className="chat-container">
 				<div className="circular">
-					<h1>Yet To be Implemented</h1>
 					<CircularProgress />
 				</div>
-			</>
+			</div>
 		);
 	}
 }

@@ -6,7 +6,6 @@ const router = express.Router();
 router.get(
 	"/:conversationId",
 	authController.protect,
-	authController.adminRightsCheck,
 	messageController.getMessagesInConversation
 );
 

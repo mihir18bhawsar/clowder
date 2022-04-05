@@ -1,0 +1,8 @@
+get my conversations - protected
+get conversation by member id - protected - 2
+create conversation - protected
+get all conversations - protected -2
+
+get messages by [my current conversation] or [by conversation]  - p - 1 and p - 2 respectively
+get messages - p - 2
+create message - p - 1

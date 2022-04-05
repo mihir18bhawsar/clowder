@@ -2,6 +2,7 @@ import authentication from "./authentication";
 import messageAndError from "./messageAndError";
 import user from "./user";
 import post from "./post";
+import conversation from "./conversation";
 
 export const login = authentication.login;
 export const logout = authentication.logout;
