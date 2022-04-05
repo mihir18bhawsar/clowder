@@ -7,6 +7,8 @@ const cors = require("cors");
 const userRouter = require("./routes/userRoutes");
 const authRouter = require("./routes/authRoutes");
 const postRouter = require("./routes/postRoutes");
+const conversationRouter = require("./routes/conversationRoutes");
+const messageRouter = require("./routes/messageRoutes");
 const { getUserPosts } = require("./controllers/userController");
 
 //setup app
@@ -23,6 +25,8 @@ app.get("/api/profile/:username", getUserPosts);
 app.use("/api/users", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/posts", postRouter);
+app.use("/api/conversations", conversationRouter);
+app.use("/api/messages", messageRouter);
 app.all("*", (req, res, next) => {
 	res.status(404).json({
 		status: "fail",

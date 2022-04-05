@@ -302,6 +302,12 @@ exports.getSearchUsers = catchAsync(async (req, res, next) => {
 				$and: [{ ismatched: true }, { disabled: false }],
 			},
 		},
+		{
+			$project: {
+				profilePicture: 1,
+				username: 1,
+			},
+		},
 	]);
 
 	res.json({ status: "success", result });
