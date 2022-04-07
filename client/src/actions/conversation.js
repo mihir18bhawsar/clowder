@@ -25,6 +25,7 @@ const createNewConversation = (receiver) => async (dispatch, getState) => {
 			sender: getState().user.me._id,
 			receiver,
 		});
+		dispatch(getMyConversations());
 	} catch (err) {
 		dispatch(
 			messageAndError.errorShow(
@@ -35,5 +36,5 @@ const createNewConversation = (receiver) => async (dispatch, getState) => {
 	}
 };
 
-const exp = { getMyConversations };
+const exp = { getMyConversations, createNewConversation };
 export default exp;

@@ -32,6 +32,7 @@ class Chat extends React.Component {
 			messageReady: false,
 		};
 		this.formref = React.createRef();
+		this.dummyref = React.createRef();
 	}
 	//get all members conversed with and conversations
 	dataload = async () => {
@@ -105,6 +106,7 @@ class Chat extends React.Component {
 				);
 			}
 		}
+		this.dummyref.current?.scrollIntoView({ behavior: "smooth" });
 	}
 
 	componentWillUnmount() {
@@ -207,6 +209,7 @@ class Chat extends React.Component {
 							<CircularProgress />
 						</div>
 					)}
+					<div className="dummy" ref={this.dummyref}></div>
 				</div>
 				<div className="message-form-container">
 					<form

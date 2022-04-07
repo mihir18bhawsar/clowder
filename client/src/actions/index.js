@@ -31,7 +31,7 @@ export const like = post.like;
 export const dislike = post.dislike;
 
 export const getMyConversations = conversation.getMyConversations;
-export const createConversation = conversation.createConversation;
+export const createNewConversation = conversation.createNewConversation;
 
 export const getMessagesByConversation = chatMessage.getMessagesByConversation;
 export const createNewMessage = chatMessage.createNewMessage;

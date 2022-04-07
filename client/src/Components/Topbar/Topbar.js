@@ -21,7 +21,11 @@ class Topbar extends React.Component {
 				<Link to="/my-posts" className="navLink">
 					My Posts
 				</Link>
-				<Link to="/" onClick={this.props.logout} className="navLink">
+				<Link
+					to="#"
+					onClick={() => this.props.logout()}
+					className="navLink"
+				>
 					Logout
 				</Link>
 			</>

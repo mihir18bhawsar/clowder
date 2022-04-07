@@ -39,8 +39,9 @@ const login = ({ email, password }) => {
 };
 const logout = () => async (dispatch) => {
 	Cookies.set("token", ""); //for state based conditional rendering
-	dispatch({ type: "LOGOUT", payload: null });
-	dispatch({ type: "USER_SESSION_OVER", payload: null });
+	await dispatch({ type: "LOGOUT", payload: null });
+	await dispatch({ type: "USER_SESSION_OVER", payload: null });
+	history.push("/");
 };
 
 const register = ({ username, email, password }) => {

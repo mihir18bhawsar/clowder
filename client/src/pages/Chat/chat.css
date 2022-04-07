@@ -108,6 +108,10 @@
 	align-items: center;
 }
 
+.dummy {
+	top: 100%;
+}
+
 .chat-display {
 	width: 100%;
 	height: 86%;
