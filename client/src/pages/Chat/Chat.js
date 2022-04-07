@@ -78,7 +78,8 @@ class Chat extends React.Component {
 			if (this._mounted)
 				this.setState({ dataLoaded: true }, () => {
 					this.updateConversationId().then(() => {
-						if (this._mounte) this.setState({ messageReady: true });
+						if (this._mounted)
+							this.setState({ messageReady: true });
 					});
 				});
 		});
@@ -91,20 +92,18 @@ class Chat extends React.Component {
 		) {
 			// history.go(`/chat/${this.props.match.params.username}`);
 			if (this._mounted) {
-				this.setState({
-					dataLoaded: false,
-					messageReady: false,
-				});
-			}
-			this.dataload().then(() => {
-				if (this._mounted)
-					this.setState({ dataLoaded: true }, () => {
+				this.setState(
+					{
+						messageReady: false,
+					},
+					() => {
 						this.updateConversationId().then(() => {
 							if (this._mounted)
 								this.setState({ messageReady: true });
 						});
-					});
-			});
+					}
+				);
+			}
 		}
 	}
 
@@ -201,7 +200,7 @@ class Chat extends React.Component {
 			<>
 				<div className="time-display">{currentTime}</div>
 				<div className="chat-display">
-					{this.props.chatMessage && this.state.messageReady ? (
+					{this.state.messageReady ? (
 						this.renderMessagesList()
 					) : (
 						<div className="circular">
