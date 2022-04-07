@@ -6,3 +6,179 @@
 	flex-direction: row;
 	justify-content: space-between;
 }
+
+.chat-main {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	flex: 2.5;
+}
+.conversation-links {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	flex: 0.2;
+	background-color: white;
+	flex-direction: column;
+	padding: 0;
+}
+
+.chat-icon {
+	align-self: center;
+	margin-top: 1.5vh;
+	color: slateblue;
+	border: 2px solid slateblue;
+	padding: 5px;
+	box-sizing: content-box;
+	border-radius: 50%;
+}
+
+.chat-hr {
+	margin-top: 1.5vh;
+	color: slateblue;
+}
+
+.chat-container .conversation-links ul {
+	width: 100%;
+	padding: calc(5px + 0.5vw);
+	margin: 0;
+	height: 100%;
+	overflow-y: scroll;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.chat-container ul::-webkit-scrollbar {
+	display: none;
+}
+
+.chat-container .conversation-links li {
+	width: calc(10px + 2.5vw);
+	height: calc(10px + 2.5vw);
+	margin: 2vh 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.conversation-link-container {
+	width: 2vw;
+	height: 2vw;
+}
+
+.conversation-icon {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	border: 3px solid slategray;
+	border-radius: 50%;
+	box-sizing: content-box;
+}
+
+.chat-main {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	background: url(https://img.freepik.com/free-vector/group-therapy-illustration-concept_52683-45502.jpg?w=826&t=st=1649183184~exp=1649183784~hmac=e87fc1ac85359e38d08360e5afe72556adac915e324eb3bbbb0147f9faeea146);
+	background-position: top;
+	background-size: cover;
+	background-blend-mode: darken;
+}
+
+.chat-display {
+	width: 100%;
+	height: 86%;
+	position: absolute;
+	flex-direction: column;
+	top: 0;
+	padding-top: 2%;
+	left: 0;
+	display: flex;
+	align-items: center;
+	overflow-y: scroll;
+	padding-bottom: 5%;
+}
+
+.message-form-container {
+	width: 100%;
+	height: 5%;
+	position: absolute;
+	z-index: 1;
+	bottom: 3%;
+	left: 0;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+.message-form {
+	width: 100%;
+	padding: 0 3vw;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.chat-input {
+	padding: 0.6vh 3vw;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	flex: 7.5;
+	color: #444;
+	border: 2px solid lightgray;
+	outline: none;
+	background-color: white;
+	border-radius: 2vh;
+	font-size: calc(5px + 1vw);
+	font-weight: 600;
+}
+.chat-message-submit-button {
+	color: white;
+	margin-left: 5%;
+	flex: 1;
+	box-shadow: none;
+	background-color: slateblue;
+	transform: scale(1.1);
+	align-self: flex-end;
+	border-radius: 10px;
+	outline: none;
+	border: none;
+}
+.chat-message-submit-button:hover {
+	box-shadow: 0 4px 16px 1px gray;
+}
+.chat-message-submit-button:active {
+	box-shadow: none;
+}
+.conversation-link {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.chat-default-message {
+	font-weight: 900;
+	font-size: calc(1.5vh + 3vw);
+	color: #444;
+	width: 60%;
+	height: max-content;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	padding: 5vw;
+	border-radius: 20px;
+	font-variant: small-caps;
+	background-color: rgba(230, 230, 250, 0.7);
+}

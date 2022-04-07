@@ -34,7 +34,7 @@ class App extends React.Component {
 							path="/profile/:user?"
 							component={Profile}
 						/>
-						<Route exact path="/chat" component={Chat} />
+						<Route exact path="/chat/:username?" component={Chat} />
 						<Route exact path="/my-posts" component={MyPosts} />
 						<Route path="/" component={Unhandled} />
 					</Switch>

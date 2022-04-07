@@ -37,8 +37,9 @@ class FriendCapsule extends React.Component {
 						/>
 					</div>
 					<div className="friendName">{this.props.user.username}</div>
-
-					{this.props.me.following.includes(this.props.user._id) ? (
+					{this.props.chat ? null : this.props.me.following.includes(
+							this.props.user._id
+					  ) ? (
 						<PersonRemoveIcon
 							className="mini-post-buttons"
 							onClick={(e) => this.handleUnfollow(e)}

@@ -3,6 +3,7 @@ import messageAndError from "./messageAndError";
 import user from "./user";
 import post from "./post";
 import conversation from "./conversation";
+import chatMessage from "./chatMessage";
 
 export const login = authentication.login;
 export const logout = authentication.logout;
@@ -28,3 +29,8 @@ export const createPost = post.createPost;
 export const getPosts = post.getPosts;
 export const like = post.like;
 export const dislike = post.dislike;
+
+export const getMyConversations = conversation.getMyConversations;
+export const createConversation = conversation.createConversation;
+
+export const getMessagesByConversation = chatMessage.getMessagesByConversation;

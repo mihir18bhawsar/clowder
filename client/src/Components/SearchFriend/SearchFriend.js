@@ -57,6 +57,7 @@ class SearchFriend extends React.Component {
 						user={user}
 						me={this.props.me}
 						key={user._id}
+						chat={this.props.chat === true}
 					/>
 				);
 			});

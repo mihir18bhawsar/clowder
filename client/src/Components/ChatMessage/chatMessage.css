@@ -1,0 +1,67 @@
+.chatbox,
+.chatbox-me {
+	z-index: 1;
+	min-width: 40%;
+	max-width: 80%;
+	height: min-content;
+	align-self: flex-start;
+	color: white;
+	margin: 0 6%;
+	margin-top: 5%;
+}
+
+.chatbox-me {
+	align-self: flex-end;
+}
+
+.chatbox-message-area,
+.chatbox-message-area-me {
+	background-color: #333;
+	color: white;
+	border-radius: 16px;
+	border-bottom-right-radius: 40px;
+	line-height: 2;
+	letter-spacing: 0.04vw;
+	font-weight: 500;
+	font-size: calc(8px + 0.5vw);
+	padding: 3vh 3vw;
+	border-top-left-radius: 0;
+	box-shadow: 0 10px 50px 3px #333;
+}
+
+.chatbox-message-area-me {
+	background-color: #dcf;
+	color: #333;
+	border-radius: 16px;
+	border-bottom-left-radius: 40px;
+	border-top-right-radius: 0;
+}
+
+.chatbox-details {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+	width: 100%;
+	padding: 0 10%;
+}
+
+.chatbox-sender,
+.chatbox-time {
+	font-weight: 600;
+	font-size: calc(4px + 1.2vw);
+	font-variant: small-caps;
+	color: white;
+	padding: 0.2vh 1vw;
+	border-radius: 0 0 15px 15px;
+	background-color: slateblue;
+}
+.chatbox-picture {
+	position: absolute;
+}
+.chatbox-time {
+	font-variant: normal;
+	font-size: calc(4px + 1vw);
+	padding: 0.4vh 1vw;
+}

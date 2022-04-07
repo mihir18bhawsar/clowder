@@ -1,6 +1,7 @@
 .of-container {
 	display: flex;
 	width: 100%;
+	height: 100%;
 	flex: 1;
 	flex-direction: column;
 	align-items: center;
@@ -13,6 +14,9 @@
 @media screen and (min-width: 950px) {
 	.of-container {
 		flex: 2;
+	}
+	.chat-container .of-container {
+		flex: 1;
 	}
 }
 
