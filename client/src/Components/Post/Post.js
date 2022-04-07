@@ -10,7 +10,7 @@ import "./Post.css";
 import { getMe, unfollow, like, dislike } from "../../actions";
 import { CircularProgress } from "@mui/material";
 
-TimeAgo.addDefaultLocale(en);
+TimeAgo.addLocale(en);
 
 class Post extends React.Component {
 	componentDidMount() {

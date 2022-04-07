@@ -7,5 +7,11 @@ const getMessagesByConversation = (convid) => async (dispatch) => {
 		payload: messages.data.data.messages,
 	});
 };
-const exp = { getMessagesByConversation };
+
+const createNewMessage = (text, conversation) => async (dispatch) => {
+	await social.post("/messages", { text, conversation });
+	dispatch(getMessagesByConversation(conversation));
+};
+
+const exp = { getMessagesByConversation, createNewMessage };
 export default exp;

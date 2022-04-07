@@ -5,13 +5,19 @@ const Conversation = require("../models/conversationModel");
 const mongoose = require("mongoose");
 
 exports.createMessage = catchAsync(async (req, res, next) => {
-	if (!(req.body.text && req.body.conversation && req.body.sender)) {
+	if (
+		!(
+			req.body.text &&
+			req.body.conversation &&
+			(req.body.sender || req.user)
+		)
+	) {
 		return next(new AppError(400, "Incomplete information"));
 	}
 	const message = await Message.create({
 		text: req.body.text,
 		conversation: req.body.conversation,
-		sender: req.user._id,
+		sender: req.body.sender || req.user._id,
 	});
 	res.json({ status: "success", data: { message } });
 });

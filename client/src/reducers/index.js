@@ -10,7 +10,7 @@ import cacheUserReducer from "./cacheUserReducer";
 import searchResultReducer from "./searchResultReducer";
 import conversationReducer from "./conversationReducer";
 import chatMessageReducer from "./chatMessageReducer";
-export default combineReducers({
+const allReducers = combineReducers({
 	error: errorReducer,
 	auth: authReducer,
 	user: userReducer,
@@ -22,3 +22,10 @@ export default combineReducers({
 	conversation: conversationReducer,
 	chatMessage: chatMessageReducer,
 });
+const rootReducer = (state, action) => {
+	if (action.type === "USER_SESSION_OVER") {
+		state = undefined;
+	}
+	return allReducers(state, action);
+};
+export default rootReducer;

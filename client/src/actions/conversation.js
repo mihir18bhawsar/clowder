@@ -19,5 +19,21 @@ const getMyConversations = () => async (dispatch) => {
 	}
 };
 
+const createNewConversation = (receiver) => async (dispatch, getState) => {
+	try {
+		await social.post("/conversations", {
+			sender: getState().user.me._id,
+			receiver,
+		});
+	} catch (err) {
+		dispatch(
+			messageAndError.errorShow(
+				err.response?.status || 500,
+				err.response?.data.message || "server unavailable"
+			)
+		);
+	}
+};
+
 const exp = { getMyConversations };
 export default exp;

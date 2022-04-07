@@ -34,3 +34,4 @@ export const getMyConversations = conversation.getMyConversations;
 export const createConversation = conversation.createConversation;
 
 export const getMessagesByConversation = chatMessage.getMessagesByConversation;
+export const createNewMessage = chatMessage.createNewMessage;

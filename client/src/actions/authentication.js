@@ -15,8 +15,9 @@ const login = ({ email, password }) => {
 				expires: 1 / 24,
 			});
 			window.setTimeout(() => {
-				getState().auth.isLoggedIn = false;
-				getState().auth.token = "";
+				// getState().auth.isLoggedIn = false;
+				// getState().auth.token = "";
+				dispatch({ type: "USER_SESSION_OVER", payload: null });
 				dispatch(
 					messageAndError.errorShow(
 						401,
@@ -36,9 +37,10 @@ const login = ({ email, password }) => {
 		}
 	};
 };
-const logout = () => {
+const logout = () => async (dispatch) => {
 	Cookies.set("token", ""); //for state based conditional rendering
-	return { type: "LOGOUT", payload: null };
+	dispatch({ type: "LOGOUT", payload: null });
+	dispatch({ type: "USER_SESSION_OVER", payload: null });
 };
 
 const register = ({ username, email, password }) => {

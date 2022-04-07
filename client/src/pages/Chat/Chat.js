@@ -10,6 +10,7 @@ import {
 	getUser,
 	getMe,
 	getMessagesByConversation,
+	createNewMessage,
 } from "../../actions";
 import ForumIcon from "@mui/icons-material/Forum";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
@@ -20,7 +21,7 @@ import "./chat.css";
 
 import { CircularProgress } from "@mui/material";
 
-TimeAgo.addDefaultLocale(en);
+TimeAgo.addLocale(en);
 class Chat extends React.Component {
 	_mounted = false;
 	constructor(props) {
@@ -30,6 +31,7 @@ class Chat extends React.Component {
 			dataLoaded: false,
 			messageReady: false,
 		};
+		this.formref = React.createRef();
 	}
 	//get all members conversed with and conversations
 	dataload = async () => {
@@ -191,10 +193,15 @@ class Chat extends React.Component {
 	};
 
 	renderChatArea = () => {
+		const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+		const currentTime = `${
+			days[new Date(Date.now()).getUTCDay()]
+		} ${new Date(Date.now()).toLocaleString()}`;
 		return (
 			<>
+				<div className="time-display">{currentTime}</div>
 				<div className="chat-display">
-					{this.props.chatMessage ? (
+					{this.props.chatMessage && this.state.messageReady ? (
 						this.renderMessagesList()
 					) : (
 						<div className="circular">
@@ -203,19 +210,32 @@ class Chat extends React.Component {
 					)}
 				</div>
 				<div className="message-form-container">
-					<form className="message-form">
+					<form
+						autoComplete="off"
+						className="message-form"
+						ref={this.formref}
+					>
 						<input
 							className="chat-input"
 							spellCheck="false"
+							name="message"
 							type="text"
-							onChange={(e) =>
-								this.setState({ text: e.target.value })
-							}
+							onChange={(e) => {
+								let text;
+								if (e.target.value)
+									text =
+										e.target.value[0].toUpperCase() +
+										e.target.value.slice(1);
+								this.setState({ text: text || e.target.value });
+							}}
 							value={this.state.text}
 						/>
 						<button
 							type="submit"
 							className="chat-message-submit-button"
+							onClick={(e) => {
+								this.formSubmitHandler(e);
+							}}
 						>
 							<FlightTakeoffIcon />
 						</button>
@@ -224,6 +244,23 @@ class Chat extends React.Component {
 			</>
 		);
 	};
+	formSubmitHandler(e) {
+		e.preventDefault();
+		const formdata = new FormData(this.formref.current);
+		const text = formdata.get("message");
+		if (!text.length) return;
+		const later = Object.values(this.props.users).find((u) => {
+			if (u.username === this.props.match.params.username) {
+				return true;
+			}
+			return false;
+		});
+		const findconv = Object.values(this.props.conversation).find((conv) =>
+			conv.members.includes(later._id)
+		);
+		this.props.createNewMessage(text, findconv._id);
+		this.setState({ text: "" });
+	}
 	render() {
 		if (this.state.dataLoaded) {
 			return (
@@ -264,4 +301,5 @@ export default connect(mapStateToProps, {
 	getUser,
 	getMe,
 	getMessagesByConversation,
+	createNewMessage,
 })(Chat);
