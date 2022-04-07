@@ -38,9 +38,8 @@ const login = ({ email, password }) => {
 	};
 };
 const logout = () => async (dispatch) => {
-	Cookies.set("token", ""); //for state based conditional rendering
-	await dispatch({ type: "LOGOUT", payload: null });
 	await dispatch({ type: "USER_SESSION_OVER", payload: null });
+	await dispatch({ type: "LOGOUT", payload: null });
 	history.push("/");
 };
 

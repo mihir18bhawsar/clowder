@@ -1,10 +1,11 @@
 import social from "../apis/social";
+import _ from "lodash";
 
 const getMessagesByConversation = (convid) => async (dispatch) => {
 	const messages = await social.get(`/messages/${convid}`);
 	dispatch({
 		type: "GET_MESSAGES_BY_CONVERSATION",
-		payload: messages.data.data.messages,
+		payload: _.orderBy(messages.data.data.messages, "createdAt"),
 	});
 };
 
