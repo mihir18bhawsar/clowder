@@ -17,7 +17,7 @@ class Profile extends React.Component {
 	_ismounted = false;
 	constructor(props) {
 		super(props);
-		this.state = { EPActive: false, dataReady: false }; //these has to be manually triggered coz there is no other way. neither the redux state change will trigger this because that only rerenders the component with updated data. also the component did mount only runs once per component display. In case of profile page we are redirecting to the same page which does not trigger a component did mount.
+		this.state = { EPActive: false, dataReady: false };
 	}
 
 	dataLoader = async () => {
@@ -48,7 +48,11 @@ class Profile extends React.Component {
 
 	componentDidUpdate(prevProps) {
 		if (this.props.match.params.user !== prevProps.match.params.user) {
-			history.go(`/profile/${this.props.match.params.user}`);
+			if (this._ismounted) this.setState({ dataReady: false });
+			this.dataLoader().then(() => {
+				if (this._ismounted) this.setState({ dataReady: true });
+				history.push(`/profile/${this.props.match.params.user}`);
+			});
 		}
 	}
 
