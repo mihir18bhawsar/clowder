@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -13,6 +14,7 @@ import { CircularProgress } from "@mui/material";
 TimeAgo.addLocale(en);
 
 class Post extends React.Component {
+	state = { view: false };
 	componentDidMount() {
 		if (this.props.isLoggedIn) {
 			this.props.getMe();
@@ -21,11 +23,39 @@ class Post extends React.Component {
 	renderDescription() {
 		return <div className="description">{this.props.description}</div>;
 	}
+
+	renderPortal = () => {
+		return ReactDOM.createPortal(
+			<div className="modal" onClick={() => this.toggleView()}>
+				<div
+					className="imageView"
+					style={{
+						background: `url(${this.props.imagesrc})`,
+						backgroundSize: "cover",
+						backgroundPosition: "center",
+					}}
+				></div>
+			</div>,
+			document.getElementById("modal")
+		);
+	};
+
+	toggleView = () => {
+		this.setState({ view: !this.state.view });
+	};
+
 	renderImage() {
 		return (
-			<div className="post-image">
-				<img src={this.props.imagesrc} alt="postimage" />
-			</div>
+			<>
+				<div className="post-image">
+					<img
+						src={this.props.imagesrc}
+						alt="postimage"
+						onClick={() => this.toggleView()}
+					/>
+				</div>
+				{this.state.view ? this.renderPortal() : null}
+			</>
 		);
 	}
 

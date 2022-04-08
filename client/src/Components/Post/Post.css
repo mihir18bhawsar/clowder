@@ -21,6 +21,7 @@
 	padding: 1vw;
 	width: 100%;
 	border-radius: 3vw;
+	cursor: zoom-in;
 }
 
 .post-bottom {
@@ -137,4 +138,31 @@ img.propic {
 }
 .mini-post-buttons:active {
 	transform: scale(0.98);
+}
+
+.imageView {
+	width: 70vw;
+	height: 70vh;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	pointer-events: all;
+	border: 1px solid #edf;
+	border-radius: 5vw;
+	box-shadow: 0 30px 70px 20px #333;
+	animation: enter 600ms ease-out -200ms forwards;
+}
+
+.imageView:hover {
+	cursor: zoom-out;
+}
+
+@keyframes enter {
+	from {
+		transform: translate(-50%, -50%) scale(0);
+	}
+	to {
+		transform: translate(-50%, -50%) scale(1);
+	}
 }
