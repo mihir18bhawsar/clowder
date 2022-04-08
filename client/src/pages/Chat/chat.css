@@ -23,7 +23,8 @@
 	padding: 0;
 }
 
-.chat-icon {
+.chat-icon,
+.chat-icon-bottom {
 	align-self: center;
 	margin-top: 1.5vh;
 	color: slateblue;
@@ -31,6 +32,26 @@
 	padding: 5px;
 	box-sizing: content-box;
 	border-radius: 50%;
+}
+.chat-icon-bottom {
+	border: 2px solid slateblue;
+	transform: scale(1.6);
+	color: slateblue;
+	background-color: #eee;
+	border-radius: none;
+	padding: 0;
+	margin-top: 0;
+	margin-bottom: 3.5vh;
+	box-sizing: border-box;
+	transition: 150ms ease-in-out !important;
+}
+
+.chat-icon-bottom:hover {
+	box-shadow: 0 0 2px 1px slateblue;
+	transform: scale(1.65);
+}
+.chat-icon-bottom:active {
+	transform: scale(1.2);
 }
 
 .chat-hr {
@@ -42,7 +63,6 @@
 	width: 100%;
 	padding: calc(5px + 0.5vw);
 	margin: 0;
-	height: 100%;
 	overflow-y: scroll;
 	display: flex;
 	flex-direction: column;
@@ -130,7 +150,6 @@
 	width: 100%;
 	height: 5%;
 	position: absolute;
-	z-index: 1;
 	bottom: 3%;
 	left: 0;
 	display: flex;

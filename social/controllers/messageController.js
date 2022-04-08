@@ -28,6 +28,11 @@ exports.getAllMessages = catchAsync(async (req, res, next) => {
 });
 
 exports.getMessagesInConversation = catchAsync(async (req, res, next) => {
+	const conversationExists = await Conversation.findById(
+		req.params.conversationId
+	);
+	if (!conversationExists)
+		return next(new AppError(404, "No such conversation"));
 	const messages = await Message.find({
 		conversation: req.params.conversationId,
 	});

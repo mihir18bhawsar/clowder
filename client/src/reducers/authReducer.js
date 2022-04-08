@@ -1,6 +1,8 @@
+import Cookies from "js-cookie";
+const token = Cookies.get("token");
 const INITIAL_STATE = {
-	token: "",
-	isLoggedIn: false,
+	token: token || "",
+	isLoggedIn: token ? true : false,
 };
 const red = (state = INITIAL_STATE, action) => {
 	if (action.type === "LOGIN") {

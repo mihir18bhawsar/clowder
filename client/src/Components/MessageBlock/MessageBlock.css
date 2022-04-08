@@ -6,7 +6,7 @@
 	justify-content: center;
 	color: white;
 	position: absolute;
-	z-index: 4;
+	z-index: 4; /*root level 3*/
 	width: 50vw;
 	height: 100px;
 	background-color: slategrey;

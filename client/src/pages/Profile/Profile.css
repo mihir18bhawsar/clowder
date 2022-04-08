@@ -15,7 +15,7 @@
 	background-color: slateblue;
 }
 .user-profile-image {
-	z-index: 1;
+	z-index: 2; /*root level 1*/
 	border: 5px solid white;
 	border-radius: 50%;
 	width: 30vh;
@@ -31,14 +31,14 @@
 	width: 100vw;
 	height: 60%;
 	clip-path: circle(160vh at 50vw -115vh);
-	z-index: 1;
+	z-index: 2; /*root level 1*/
 }
 .border-cover-section {
 	position: absolute;
 	background-color: white;
 	width: 100vw;
 	height: 100%;
-	z-index: 1;
+	z-index: 1; /*root level background*/
 	clip-path: circle(161vh at 50vw -115vh);
 }
 
@@ -82,7 +82,7 @@
 	top: 80%;
 	left: 80%;
 	color: slateblue;
-	z-index: 1;
+	z-index: 2; /*root level 1*/
 	transform: translate(-50%, -50%) scale(0.9);
 }
 #age .profile-value {

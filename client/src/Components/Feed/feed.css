@@ -51,7 +51,7 @@
 	font-size: calc(8px + 0.9vw);
 	font-weight: 700;
 	position: absolute;
-	z-index: 2;
+	z-index: 3; /*root level 2*/
 	outline: none;
 	border: none;
 	background-color: white;

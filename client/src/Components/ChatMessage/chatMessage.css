@@ -1,6 +1,5 @@
 .chatbox,
 .chatbox-me {
-	z-index: 1;
 	min-width: 40%;
 	max-width: 80%;
 	height: min-content;

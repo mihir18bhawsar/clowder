@@ -6,13 +6,13 @@
 	flex: 3;
 }
 
-section.modal-section {
+#modal section.modal-section {
 	width: 100vw;
 	height: 100vh;
 	position: absolute;
-	z-index: 4;
 	top: 0;
 	left: 0;
+	pointer-events: all;
 }
 .searchResult {
 	display: flex;

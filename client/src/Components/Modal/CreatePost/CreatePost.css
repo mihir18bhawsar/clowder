@@ -1,15 +1,12 @@
-.modal {
-	width: 100vw;
-	height: 100vh;
-	position: absolute;
-	top: 0;
-	left: 0;
+#modal .modal {
+	pointer-events: all;
+	width: 100%;
+	height: 100%;
 	background-color: transparent;
 	backdrop-filter: blur(15px) brightness(70%);
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	z-index: 3;
 }
 
 .modal .authContainer {
@@ -50,7 +47,7 @@ textarea {
 	font-size: small;
 	pointer-events: none;
 	position: absolute;
-	z-index: 2;
+	z-index: 1; /*modal level 1*/
 	width: 100%;
 	height: 50%;
 	display: flex;

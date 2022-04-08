@@ -88,7 +88,7 @@ class Feed extends React.Component {
 			return (
 				<div className="feed-container">
 					<button
-						className="createPostBtn button"
+						className="createPostBtn"
 						onClick={this.modalToggle}
 					>
 						New Post

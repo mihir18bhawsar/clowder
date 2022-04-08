@@ -16,7 +16,7 @@
 	}
 }
 .post-container img {
-	z-index: 1;
+	z-index: 2; /*root level 1*/
 	position: relative;
 	padding: 1vw;
 	width: 100%;

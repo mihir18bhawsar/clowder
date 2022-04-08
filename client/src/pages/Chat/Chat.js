@@ -13,10 +13,11 @@ import {
 	createNewMessage,
 } from "../../actions";
 import ForumIcon from "@mui/icons-material/Forum";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import OnlineFriends from "../../Components/OnlineFriends/OnlineFriends";
 import ChatMessage from "../../Components/ChatMessage/ChatMessage";
-
+import Modal from "../../Components/Modal/CreateConversation/CreateConversation";
 import "./chat.css";
 
 import { CircularProgress } from "@mui/material";
@@ -145,6 +146,7 @@ class Chat extends React.Component {
 				<ForumIcon className="chat-icon" />
 				<hr className="chat-hr" />
 				<ul>{list}</ul>
+				<AddCircleIcon className="chat-icon-bottom" />
 			</>
 		);
 	};
@@ -271,6 +273,7 @@ class Chat extends React.Component {
 					<div className="chat-container">
 						<div className="conversation-links">
 							{this.renderMyConversations()}
+							<Modal />
 						</div>
 						<div className="chat-main">{this.renderChatArea()}</div>
 						<OnlineFriends />

@@ -12,7 +12,7 @@ const login = ({ email, password }) => {
 			});
 			dispatch({ type: "LOGIN", payload: resolved.data.token });
 			Cookies.set("token", resolved.data.token, {
-				expires: 1 / 24 / 60 / 3,
+				expires: 1 / 24,
 			});
 			history.push("/");
 			dispatch(messageAndError.messageShow("Logged In successfully!"));

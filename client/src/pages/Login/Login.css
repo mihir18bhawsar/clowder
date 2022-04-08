@@ -51,7 +51,7 @@
 	left: 50%;
 	transform: translate(-50%, -200%);
 	font-variant: small-caps;
-	z-index: 1;
+	z-index: 2; /*root level 1*/
 	color: rgb(250, 200, 200);
 	font-weight: 500;
 	font-size: 1.6vw;
@@ -110,6 +110,7 @@ form {
 .submit-button:hover {
 	box-shadow: 0 0 15px 0px gray;
 	text-shadow: 0 0 1px slateblue;
+	z-index: 2; /*root level 1*/
 }
 .submit-button:active {
 	transform: scale(0.98);

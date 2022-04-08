@@ -4,3 +4,22 @@
 	box-sizing: border-box;
 	font-family: "Saira";
 }
+
+#modal {
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+	pointer-events: none;
+	z-index: 1; /*modal level 0*/
+}
+
+#root {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 0; /*root level 0*/
+}
