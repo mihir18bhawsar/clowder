@@ -25,7 +25,8 @@
 	font-size: calc(8px + 0.5vw);
 	padding: 3vh 3vw;
 	border-top-left-radius: 0;
-	box-shadow: 0 10px 50px 3px #333;
+	box-shadow: 0 15px 50px 3px #333;
+	opacity: 0.92;
 }
 
 .chatbox-message-area-me {

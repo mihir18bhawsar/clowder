@@ -110,6 +110,7 @@
 	background-position: top;
 	background-size: cover;
 	background-blend-mode: darken;
+	z-index: 1;
 }
 
 .time-display {

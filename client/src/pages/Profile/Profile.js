@@ -31,6 +31,8 @@ class Profile extends React.Component {
 			await this.props.getUserCache(this.props.match.params.user);
 			await this.props.getMe();
 		}
+		if (history.location.pathname === `/profile/${this.props.me.username}`)
+			history.push("/profile");
 	};
 	componentDidMount() {
 		this._ismounted = true;
@@ -51,7 +53,8 @@ class Profile extends React.Component {
 			if (this._ismounted) this.setState({ dataReady: false });
 			this.dataLoader().then(() => {
 				if (this._ismounted) this.setState({ dataReady: true });
-				history.push(`/profile/${this.props.match.params.user}`);
+				if (this.props.match.params.user)
+					history.push(`/profile/${this.props.match.params.user}`);
 			});
 		}
 	}

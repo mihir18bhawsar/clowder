@@ -31,6 +31,7 @@ class Chat extends React.Component {
 			text: "",
 			dataLoaded: false,
 			messageReady: false,
+			timer: 0,
 		};
 		this.formref = React.createRef();
 		this.dummyref = React.createRef();
@@ -72,6 +73,9 @@ class Chat extends React.Component {
 	};
 
 	componentDidMount() {
+		setInterval(() => {
+			this.setState({ timer: this.state.timer + 1 });
+		}, 1000);
 		if (!this.props.isLoggedIn) {
 			history.push("/login");
 		}
@@ -195,6 +199,43 @@ class Chat extends React.Component {
 		}
 	};
 
+	renderMsgFrm = () => {
+		return (
+			<div className="message-form-container">
+				<form
+					autoComplete="off"
+					className="message-form"
+					ref={this.formref}
+				>
+					<input
+						className="chat-input"
+						spellCheck="false"
+						name="message"
+						type="text"
+						onChange={(e) => {
+							let text;
+							if (e.target.value)
+								text =
+									e.target.value[0].toUpperCase() +
+									e.target.value.slice(1);
+							this.setState({ text: text || e.target.value });
+						}}
+						value={this.state.text}
+					/>
+					<button
+						type="submit"
+						className="chat-message-submit-button"
+						onClick={(e) => {
+							this.formSubmitHandler(e);
+						}}
+					>
+						<FlightTakeoffIcon />
+					</button>
+				</form>
+			</div>
+		);
+	};
+
 	renderChatArea = () => {
 		const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 		const currentTime = `${
@@ -213,38 +254,7 @@ class Chat extends React.Component {
 					)}
 					<div className="dummy" ref={this.dummyref}></div>
 				</div>
-				<div className="message-form-container">
-					<form
-						autoComplete="off"
-						className="message-form"
-						ref={this.formref}
-					>
-						<input
-							className="chat-input"
-							spellCheck="false"
-							name="message"
-							type="text"
-							onChange={(e) => {
-								let text;
-								if (e.target.value)
-									text =
-										e.target.value[0].toUpperCase() +
-										e.target.value.slice(1);
-								this.setState({ text: text || e.target.value });
-							}}
-							value={this.state.text}
-						/>
-						<button
-							type="submit"
-							className="chat-message-submit-button"
-							onClick={(e) => {
-								this.formSubmitHandler(e);
-							}}
-						>
-							<FlightTakeoffIcon />
-						</button>
-					</form>
-				</div>
+				{this.props.match.params.username ? this.renderMsgFrm() : null}
 			</>
 		);
 	};
