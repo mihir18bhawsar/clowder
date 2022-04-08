@@ -66,7 +66,7 @@ class Chat extends React.Component {
 			const findconv = Object.values(this.props.conversation).find(
 				(conv) => conv.members.includes(later._id)
 			);
-			await this.messageLoad(findconv._id);
+			if (findconv) await this.messageLoad(findconv._id);
 		}
 	};
 

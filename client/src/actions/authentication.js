@@ -12,21 +12,10 @@ const login = ({ email, password }) => {
 			});
 			dispatch({ type: "LOGIN", payload: resolved.data.token });
 			Cookies.set("token", resolved.data.token, {
-				expires: 1 / 24,
+				expires: 1 / 24 / 60 / 3,
 			});
-			window.setTimeout(() => {
-				// getState().auth.isLoggedIn = false;
-				// getState().auth.token = "";
-				dispatch({ type: "USER_SESSION_OVER", payload: null });
-				dispatch(
-					messageAndError.errorShow(
-						401,
-						"session expired login again"
-					)
-				);
-				history.push("/login");
-			}, 1000 * 60 * 60);
 			history.push("/");
+			dispatch(messageAndError.messageShow("Logged In successfully!"));
 		} catch (err) {
 			dispatch(
 				messageAndError.errorShow(
@@ -39,8 +28,9 @@ const login = ({ email, password }) => {
 };
 const logout = () => async (dispatch) => {
 	await dispatch({ type: "USER_SESSION_OVER", payload: null });
-	await dispatch({ type: "LOGOUT", payload: null });
-	history.push("/");
+	await dispatch(
+		messageAndError.errorShow(401, "Session Expired / Logged Out")
+	);
 };
 
 const register = ({ username, email, password }) => {
@@ -54,6 +44,7 @@ const register = ({ username, email, password }) => {
 			dispatch({ type: "REGISTER", payload: user.data.token });
 			Cookies.set("token", user.data.token, { expires: 1 / 24 });
 			history.push("/");
+			dispatch(messageAndError.messageShow("Registered successfully!"));
 		} catch (err) {
 			dispatch(
 				messageAndError.errorShow(

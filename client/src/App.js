@@ -15,6 +15,7 @@ import ErrorBlock from "./Components/ErrorBlock/ErrorBlock";
 import MessageBlock from "./Components/MessageBlock/MessageBlock";
 import Topbar from "./Components/Topbar/Topbar";
 import MyPosts from "./pages/MyPosts/MyPosts";
+import SessionCheck from "./Components/SessionCheck.js";
 
 class App extends React.Component {
 	render() {
@@ -24,6 +25,7 @@ class App extends React.Component {
 				<ErrorBlock />
 				<MessageBlock />
 				<Router history={history}>
+					<SessionCheck />
 					<Topbar />
 					<Switch>
 						<Route exact path="/" component={Home} />
