@@ -52,7 +52,7 @@ class Feed extends React.Component {
 					return null;
 				let ownerName;
 				ownerName = !this.props.users[post.postedBy]?.disabled
-					? this.props.users[post.postedBy].username
+					? this.props.users[post.postedBy]?.username
 					: "[deleted user]";
 				ownerName =
 					this.props.users[post.postedBy]._id ===

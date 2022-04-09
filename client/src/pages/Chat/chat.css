@@ -227,3 +227,35 @@
 	font-variant: small-caps;
 	background-color: rgba(230, 230, 250, 0.7);
 }
+
+.conversation-create-form {
+	width: 50%;
+	height: 50%;
+	background-color: slateblue;
+	color: white;
+	border-radius: 5vw;
+}
+
+::placeholder {
+	color: #555;
+
+	font-weight: 500;
+}
+
+.conversation-create-form input,
+.conversation-create-form input:hover {
+	position: relative;
+	font-size: medium;
+	background-color: white;
+	color: slateblue;
+	font-weight: 600;
+}
+
+.Modal-heading {
+	align-self: center;
+	text-align: center;
+	font-size: calc(15px + 2vw);
+	color: white;
+	font-weight: 700;
+	text-shadow: 0 0 10px white;
+}

@@ -36,7 +36,7 @@ class Register extends React.Component {
 			<>
 				<Background />
 				<div className="login-container">
-					<div className="authContainer">
+					<div className="regis authContainer">
 						<div className="login-heading">Register</div>
 						<div className="login-subheading">
 							provide your username,email and password

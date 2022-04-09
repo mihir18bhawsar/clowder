@@ -4,6 +4,10 @@ const AppError = require("../utils/AppError");
 const mongoose = require("mongoose");
 
 exports.createConversation = catchAsync(async (req, res, next) => {
+	if (!req.body.sender) req.body.sender = req.user._id;
+	if (req.body.receiver === req.body.sender) {
+		return next(new AppError(400, "Can't create conversation with self"));
+	}
 	if (!(req.body.sender && req.body.receiver))
 		return next(new AppError(400, "sender - receiver details missing"));
 

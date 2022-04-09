@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import _ from "lodash";
 import history from "../../history";
 import { connect } from "react-redux";
@@ -11,13 +12,15 @@ import {
 	getMe,
 	getMessagesByConversation,
 	createNewMessage,
+	getUserCache,
+	createNewConversation,
 } from "../../actions";
 import ForumIcon from "@mui/icons-material/Forum";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import OnlineFriends from "../../Components/OnlineFriends/OnlineFriends";
 import ChatMessage from "../../Components/ChatMessage/ChatMessage";
-import Modal from "../../Components/Modal/CreateConversation/CreateConversation";
+
 import "./chat.css";
 
 import { CircularProgress } from "@mui/material";
@@ -32,9 +35,11 @@ class Chat extends React.Component {
 			dataLoaded: false,
 			messageReady: false,
 			timer: 0,
+			viewModal: false,
 		};
 		this.formref = React.createRef();
 		this.dummyref = React.createRef();
+		this.modalFormRef = React.createRef();
 	}
 	//get all members conversed with and conversations
 	dataload = async () => {
@@ -74,8 +79,8 @@ class Chat extends React.Component {
 
 	componentDidMount() {
 		setInterval(() => {
-			this.setState({ timer: this.state.timer + 1 });
-		}, 1000);
+			if (this._mounted) this.setState({ timer: this.state.timer + 1 });
+		}, 1000); //
 		if (!this.props.isLoggedIn) {
 			history.push("/login");
 		}
@@ -118,6 +123,11 @@ class Chat extends React.Component {
 		this._mounted = false;
 	}
 	//thin bar display photos of friends and create links for our chat with them
+
+	toggleModal = (e) => {
+		if (this._mounted) this.setState({ viewModal: !this.state.viewModal });
+	};
+
 	renderMyConversations = () => {
 		const list = Object.values(this.props.conversation).map((conv) => {
 			const notMe = conv.members.filter(
@@ -150,8 +160,55 @@ class Chat extends React.Component {
 				<ForumIcon className="chat-icon" />
 				<hr className="chat-hr" />
 				<ul>{list}</ul>
-				<AddCircleIcon className="chat-icon-bottom" />
+				<AddCircleIcon
+					className="chat-icon-bottom"
+					onClick={(e) => this.toggleModal(e)}
+				/>
+				{this.state.viewModal ? this.renderModal() : null}
 			</>
+		);
+	};
+
+	submitProcess = async () => {
+		const formdata = new FormData(this.modalFormRef.current);
+		await this.props.getUserCache([...formdata.values()][0]);
+		await this.props.createNewConversation(this.props.cache);
+	};
+
+	modalSubmitHandle = (e) => {
+		e.preventDefault();
+		this.submitProcess();
+		this.toggleModal(e);
+	};
+
+	renderModal = () => {
+		return ReactDOM.createPortal(
+			<div className="modal" onClick={(e) => this.toggleModal(e)}>
+				<form
+					className="conversation-create-form"
+					onSubmit={(e) => {
+						this.modalSubmitHandle(e);
+					}}
+					ref={this.modalFormRef}
+					onClick={(e) => {
+						e.stopPropagation();
+					}}
+				>
+					<div className="Modal-heading">Create Conversation</div>
+
+					<input
+						name="username"
+						type="text"
+						value={this.state.conversationFormValue}
+						className="textfield"
+						placeholder="Enter Username"
+					/>
+					<button type="submit" className="submit-button">
+						Create
+					</button>
+				</form>
+			</div>,
+			document.getElementById("modal")
 		);
 	};
 
@@ -283,7 +340,6 @@ class Chat extends React.Component {
 					<div className="chat-container">
 						<div className="conversation-links">
 							{this.renderMyConversations()}
-							<Modal />
 						</div>
 						<div className="chat-main">{this.renderChatArea()}</div>
 						<OnlineFriends />
@@ -308,6 +364,7 @@ const mapStateToProps = (state) => {
 		me: state.user["me"],
 		users: state.user,
 		chatMessage: state.chatMessage,
+		cache: state.cacheUser?._id,
 	};
 };
 
@@ -317,4 +374,6 @@ export default connect(mapStateToProps, {
 	getMe,
 	getMessagesByConversation,
 	createNewMessage,
+	getUserCache,
+	createNewConversation,
 })(Chat);
