@@ -111,12 +111,17 @@ class Chat extends React.Component {
 						this.updateConversationId().then(() => {
 							if (this._mounted)
 								this.setState({ messageReady: true });
+							this.dummyref.current.scrollIntoView({
+								behavior: "smooth",
+							}); //new conversation load
 						});
 					}
 				);
 			}
 		}
-		this.dummyref.current?.scrollIntoView({ behavior: "smooth" });
+		if (this.props.chatMessage.length > prevProps.chatMessage.length)
+			//new message
+			this.dummyref.current?.scrollIntoView({ behavior: "smooth" });
 	}
 
 	componentWillUnmount() {
