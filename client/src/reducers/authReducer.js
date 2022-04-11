@@ -11,6 +11,9 @@ const red = (state = INITIAL_STATE, action) => {
 	if (action.type === "REGISTER") {
 		return { ...state, isLoggedIn: true, token: action.payload };
 	}
+	if (action.type === "LOGOUT") {
+		return { isLoggedIn: false, token: "" };
+	}
 	return state;
 };
 export default red;

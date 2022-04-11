@@ -27,10 +27,22 @@ const login = ({ email, password }) => {
 	};
 };
 const logout = () => async (dispatch) => {
-	await dispatch({ type: "USER_SESSION_OVER", payload: null });
-	await dispatch(
-		messageAndError.errorShow(401, "Session Expired / Logged Out")
-	);
+	try {
+		Cookies.remove("token");
+		dispatch({ type: "USER_SESSION_OVER", payload: null });
+		dispatch({ type: "LOGOUT", payload: null });
+		await dispatch(
+			messageAndError.messageShow("Session Expired / Logged Out")
+		);
+		history.push("/login");
+	} catch (err) {
+		dispatch(
+			messageAndError.errorShow(
+				err.response?.status || 500,
+				err.response?.data.message || "Server unable at the moment"
+			)
+		);
+	}
 };
 
 const register = ({ username, email, password }) => {

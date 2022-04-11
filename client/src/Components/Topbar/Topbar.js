@@ -23,7 +23,10 @@ class Topbar extends React.Component {
 				</Link>
 				<Link
 					to="#"
-					onClick={() => this.props.logout()}
+					onClick={(e) => {
+						e.preventDefault();
+						this.props.logout();
+					}}
 					className="navLink"
 				>
 					Logout

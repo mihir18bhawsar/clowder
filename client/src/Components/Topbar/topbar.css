@@ -63,6 +63,7 @@
 .navLink:hover {
 	text-shadow: 0px 0px 2px white;
 	transform: scale(1.2);
+	cursor: pointer;
 }
 .navLink:active {
 	text-shadow: none;
