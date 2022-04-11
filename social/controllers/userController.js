@@ -138,7 +138,7 @@ save him
 exports.showFollowers = catchAsync(async (req, res, next) => {
 	const user = await User.findById(
 		req.params.id || req.user._id || undefined
-	).populate({ path: "followers", select: "username email -_id" });
+	).populate({ path: "followers", select: "-password" });
 	if (!user) next(new AppError(404, "user doesn't exist"));
 	res.status(200).json({
 		status: "success",
@@ -155,7 +155,7 @@ return followers
 exports.showFollowing = catchAsync(async (req, res, next) => {
 	const user = await User.findById(req.user._id).populate({
 		path: "following",
-		select: "username email -_id",
+		select: "-password",
 	});
 	if (!user) next(new AppError(404, "user doesn't exist"));
 	res.status(200).json({

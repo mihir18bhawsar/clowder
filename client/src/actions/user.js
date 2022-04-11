@@ -39,18 +39,14 @@ const follow = (id) => async (dispatch) => {
 
 const getFollowing = (id) => async (dispatch) => {
 	try {
-		const resolved = await social.get(`/users/${id}`);
-		const following = resolved.data.data.user.following;
+		const resolved = await social.get(`/users/${id}/following`);
+		const following = resolved.data.data.following;
 		if (following.length < 1) {
 			return;
 		}
-		const followingPromises = following.map(async (id) => {
-			return await social.get(`/users/${id}`);
-		});
-		const responsesArray = await Promise.all(followingPromises);
-		const idObjectPairs = responsesArray.map((response) => {
-			const eachfollowing = response.data.data.user;
-			return { [eachfollowing._id]: eachfollowing };
+
+		const idObjectPairs = following.map((one) => {
+			return { [one._id]: one };
 		});
 		const followingList = Object.assign(...idObjectPairs);
 		dispatch({
@@ -68,18 +64,13 @@ const getFollowing = (id) => async (dispatch) => {
 };
 const getFollowers = (id) => async (dispatch) => {
 	try {
-		const resolved = await social.get(`/users/${id}`);
-		const followers = resolved.data.data.user.followers;
+		const resolved = await social.get(`/users/${id}/followers`);
+		const followers = resolved.data.data.followers;
 		if (followers.length < 1) {
 			return;
 		}
-		const followersPromises = followers.map(async (id) => {
-			return await social.get(`/users/${id}`);
-		});
-		const responsesArray = await Promise.all(followersPromises);
-		const idObjectPairs = responsesArray.map((response) => {
-			const follower = response.data.data.user;
-			return { [follower._id]: follower };
+		const idObjectPairs = followers.map((one) => {
+			return { [one._id]: one };
 		});
 		const followersList = Object.assign(...idObjectPairs);
 		dispatch({

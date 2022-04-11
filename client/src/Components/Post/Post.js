@@ -15,11 +15,7 @@ TimeAgo.addLocale(en);
 
 class Post extends React.Component {
 	state = { view: false };
-	componentDidMount() {
-		if (this.props.isLoggedIn) {
-			this.props.getMe();
-		}
-	}
+
 	renderDescription() {
 		return <div className="description">{this.props.description}</div>;
 	}

@@ -75,6 +75,7 @@ class Feed extends React.Component {
 						description={description}
 						profilePic={profilePic}
 						post={post}
+						me={this.props.me}
 					/>
 				);
 			});
