@@ -10,6 +10,9 @@ import cacheUserReducer from "./cacheUserReducer";
 import searchResultReducer from "./searchResultReducer";
 import conversationReducer from "./conversationReducer";
 import chatMessageReducer from "./chatMessageReducer";
+import socketReducer from "./socketReducer";
+import onlineUsersReducer from "./onlineUsersReducer";
+
 const allReducers = combineReducers({
 	error: errorReducer,
 	auth: authReducer,
@@ -21,6 +24,8 @@ const allReducers = combineReducers({
 	searchResult: searchResultReducer,
 	conversation: conversationReducer,
 	chatMessage: chatMessageReducer,
+	socket: socketReducer,
+	onlineUsers: onlineUsersReducer,
 });
 const rootReducer = (state, action) => {
 	if (action.type === "USER_SESSION_OVER") {

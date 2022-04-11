@@ -2,6 +2,7 @@ import history from "../history";
 import Cookies from "js-cookie";
 import social from "../apis/social";
 import messageAndError from "./messageAndError";
+import { setSocket } from ".";
 
 const login = ({ email, password }) => {
 	return async (dispatch, getState) => {
@@ -16,6 +17,11 @@ const login = ({ email, password }) => {
 			});
 			history.push("/");
 			dispatch(messageAndError.messageShow("Logged In successfully!"));
+			getState().socket.emit(
+				"login",
+				resolved.data.username,
+				resolved.data.userId
+			);
 		} catch (err) {
 			dispatch(
 				messageAndError.errorShow(
@@ -26,8 +32,10 @@ const login = ({ email, password }) => {
 		}
 	};
 };
-const logout = () => async (dispatch) => {
+const logout = () => async (dispatch, getState) => {
 	try {
+		const socket = getState().socket;
+		const id = getState().user.me._id;
 		Cookies.remove("token");
 		dispatch({ type: "USER_SESSION_OVER", payload: null });
 		dispatch({ type: "LOGOUT", payload: null });
@@ -35,6 +43,8 @@ const logout = () => async (dispatch) => {
 			messageAndError.messageShow("Session Expired / Logged Out")
 		);
 		history.push("/login");
+		dispatch(setSocket(socket));
+		socket.emit("logout", id);
 	} catch (err) {
 		dispatch(
 			messageAndError.errorShow(

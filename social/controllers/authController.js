@@ -113,7 +113,12 @@ exports.login = catchAsync(async (req, res, next) => {
 		return next(new AppError(400, "Password is incorrect"));
 	const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
 
-	res.status(200).json({ message: "logged in", token });
+	res.status(200).json({
+		message: "logged in",
+		token,
+		username: user.username,
+		userId: user._id,
+	});
 });
 /*recap
     get user with provided email

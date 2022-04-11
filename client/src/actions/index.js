@@ -35,3 +35,10 @@ export const createNewConversation = conversation.createNewConversation;
 
 export const getMessagesByConversation = chatMessage.getMessagesByConversation;
 export const createNewMessage = chatMessage.createNewMessage;
+
+export const setSocket = (socket) => {
+	return { type: "SET_SOCKET", payload: socket };
+};
+export const setOnlineUsers = (onlineUsers) => {
+	return { type: "SET_ONLINE_USERS", payload: onlineUsers };
+};

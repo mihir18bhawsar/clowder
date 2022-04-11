@@ -1,7 +1,9 @@
 import React from "react";
 import { Router, Switch, Route } from "react-router-dom";
+import { io } from "socket.io-client";
+import { connect } from "react-redux";
+import { setSocket, setOnlineUsers, getMe } from "./actions";
 import Background from "./Components/Background/Background";
-
 import "./app.css";
 //import pages
 import Unhandled from "./pages/Unhandled/Unhandled";
@@ -18,6 +20,39 @@ import MyPosts from "./pages/MyPosts/MyPosts";
 import SessionCheck from "./Components/SessionCheck.js";
 
 class App extends React.Component {
+	_mounted = false;
+	//?? SOCKET ?????????????????????????????????????????????????//
+
+	socketSet = () => {
+		this.props.setSocket(this.socket);
+	};
+
+	dataload = async () => {
+		await this.props.getMe();
+	};
+
+	componentDidMount() {
+		this._mounted = true;
+		this.socket = io("ws://localhost:8000");
+		this.socket.on("connect", () => this.socketSet());
+		if (this.props.isLoggedIn) {
+			this.dataload().then(() => {
+				if (this._mounted)
+					this.socket.emit(
+						"reload",
+						this.props.me.username,
+						this.props.me._id
+					);
+			});
+		}
+		this.socket.on("onlineUsersUpdated", (onlineUsers) => {
+			this.props.setOnlineUsers(onlineUsers);
+		});
+	}
+	componentWillUnmount() {
+		this._mounted = false;
+	}
+	//?? SOCKET ???????????????????????????????????????????????????//
 	render() {
 		return (
 			<>
@@ -46,4 +81,13 @@ class App extends React.Component {
 	}
 }
 
-export default App;
+const mapStateToProps = (state) => {
+	return {
+		isLoggedIn: state.auth.isLoggedIn,
+		me: state.user.me,
+	};
+};
+
+export default connect(mapStateToProps, { setSocket, setOnlineUsers, getMe })(
+	App
+);

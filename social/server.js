@@ -1,5 +1,6 @@
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const socket = require("socket.io");
 
 process.on("uncaughtException", (err) => {
 	console.log("UNCAUGHT EXCEPTION! 💥 Shutting down...");
@@ -37,5 +38,38 @@ process.on("unhandledRejection", (err) => {
 process.on("SIGTERM", () => {
 	server.close(() => {
 		console.log("process terminated");
+	});
+});
+
+const io = socket(server, {
+	cors: {
+		origin: "http://localhost:3000",
+	},
+});
+const onlineUsers = {};
+io.on("connection", (socket) => {
+	let currentUserId;
+	// on application refresh ... on application close and reopen ... triggered only if already logged in
+	socket.on("reload", (username, userId) => {
+		console.log("reload", onlineUsers);
+		currentUserId = userId;
+		onlineUsers[userId] = username;
+		io.emit("onlineUsersUpdated", onlineUsers);
+	});
+	// adds newly logged in user to the list and updates the current user id on server side ... triggered on login hit
+	socket.on("login", (username, userId) => {
+		currentUserId = userId;
+		onlineUsers[userId] = username;
+		io.emit("onlineUsersUpdated", onlineUsers);
+	});
+	// removes the logged out user from onlineusers list
+	socket.on("logout", (userId) => {
+		delete onlineUsers[userId];
+		io.emit("onlineUsersUpdated", onlineUsers);
+	});
+	// for connection close... triggers before reload ... on application close
+	socket.on("disconnect", () => {
+		delete onlineUsers[currentUserId];
+		io.emit("onlineUsersUpdated", onlineUsers);
 	});
 });
