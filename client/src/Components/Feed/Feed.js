@@ -59,12 +59,12 @@ class Feed extends React.Component {
 					this.props.users["me"]._id
 						? "You"
 						: ownerName;
-				const profilePic = `${process.env.PUBLIC_URL}/images/${
-					this.props.users[post.postedBy].profilePicture
-				}`;
+				const profilePic = `${
+					process.env.REACT_APP_PUBLIC_PATH_URL
+				}/images/${this.props.users[post.postedBy].profilePicture}`;
 				let imagesrc;
 				if (post.image)
-					imagesrc = `${process.env.PUBLIC_URL}/images/${post.image}`;
+					imagesrc = `${process.env.REACT_APP_PUBLIC_PATH_URL}/images/${post.image}`;
 				const description = post.description;
 				return (
 					<Post

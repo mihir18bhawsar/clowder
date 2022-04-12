@@ -32,7 +32,7 @@ class FriendCapsule extends React.Component {
 					<div className="profileContainer">
 						<img
 							src={
-								process.env.PUBLIC_URL +
+								process.env.REACT_APP_PUBLIC_PATH_URL +
 								`/images/${
 									this.props.user.profilePicture ||
 									"default.jpg"

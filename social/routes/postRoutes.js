@@ -20,7 +20,7 @@ const imageConfigure = catchAsync(async (req, res, next) => {
 	await sharp(req.file.buffer)
 		.toFormat("jpeg")
 		.jpeg({ quality: 70 })
-		.toFile(`../client/public/images/${req.file.filename}`);
+		.toFile(`./public/images/${req.file.filename}`);
 	req.body.imageName = req.file.filename;
 	next();
 });

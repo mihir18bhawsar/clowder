@@ -212,7 +212,7 @@ class Profile extends React.Component {
 					className="cover-section"
 					style={{
 						backgroundImage: `url(${
-							process.env.PUBLIC_URL
+							process.env.REACT_APP_PUBLIC_PATH_URL
 						}/images/${
 							this.props.user
 								? this.props.user.coverPicture
@@ -229,7 +229,7 @@ class Profile extends React.Component {
 		return (
 			<img
 				className="user-profile-image"
-				src={`${process.env.PUBLIC_URL}/images/${
+				src={`${process.env.REACT_APP_PUBLIC_PATH_URL}/images/${
 					this.props.user
 						? this.props.user.profilePicture
 						: "default.jpg"

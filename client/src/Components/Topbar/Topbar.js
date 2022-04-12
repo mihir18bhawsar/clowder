@@ -62,11 +62,12 @@ class Topbar extends React.Component {
 		let profilePicPath;
 		if (this.props.me) {
 			profilePicPath =
-				process.env.PUBLIC_URL +
+				process.env.REACT_APP_PUBLIC_PATH_URL +
 				"/images/" +
 				this.props.me.profilePicture;
 		} else {
-			profilePicPath = process.env.PUBLIC_URL + "/images/default.jpg";
+			profilePicPath =
+				process.env.REACT_APP_PUBLIC_PATH_URL + "/images/default.jpg";
 		}
 		return (
 			<Link to="/profile">

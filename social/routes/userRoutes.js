@@ -23,7 +23,7 @@ const imageConfigure = catchAsync(async (req, res, next) => {
 			.resize(1920, 1080)
 			.toFormat("jpeg")
 			.jpeg({ quality: 100 })
-			.toFile(`../client/public/images/${coverfilename}`);
+			.toFile(`./public/images/${coverfilename}`);
 
 		req.body.coverPicture = coverfilename;
 	}
@@ -38,7 +38,7 @@ const imageConfigure = catchAsync(async (req, res, next) => {
 			.resize(500, 500, { position: "top" })
 			.toFormat("jpeg")
 			.jpeg({ quality: 100 })
-			.toFile(`../client/public/images/${profilefilename}`);
+			.toFile(`./public/images/${profilefilename}`);
 
 		req.body.profilePicture = profilefilename;
 	}
@@ -57,7 +57,7 @@ router.get(
 	userController.getAllUsers
 );
 
-router.get("/search", authController.protect,userController.getSearchUsers);
+router.get("/search", authController.protect, userController.getSearchUsers);
 
 router
 	.route("/:user?")

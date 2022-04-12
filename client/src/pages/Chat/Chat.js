@@ -146,7 +146,7 @@ class Chat extends React.Component {
 					>
 						<img
 							src={
-								process.env.PUBLIC_URL +
+								process.env.REACT_APP_PUBLIC_PATH_URL +
 								`/images/${
 									this.props.users[notMe].profilePicture ||
 									"default.jpg"
