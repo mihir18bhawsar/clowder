@@ -10,7 +10,7 @@ import "./feed.css";
 
 class Feed extends React.Component {
 	_isMounted = false;
-	state = { modalActive: false, dataReady: false };
+	state = { modalActive: false, dataReady: false, timer: 0 };
 	dataloader = async () => {
 		await this.props.getMeAndMore();
 		await this.props.getPosts();
@@ -18,6 +18,9 @@ class Feed extends React.Component {
 
 	componentDidMount() {
 		this._isMounted = true;
+		this.interval = setInterval(() => {
+			if (this._isMounted) this.setState({ timer: this.state.timer + 1 });
+		}, 1000);
 		if (this.props.isLoggedIn) {
 			this.dataloader().then(() => {
 				if (this._isMounted) this.setState({ dataReady: true });
@@ -26,6 +29,7 @@ class Feed extends React.Component {
 	}
 	componentWillUnmount() {
 		this._isMounted = false;
+		clearInterval(this.interval);
 	}
 	renderPostList = () => {
 		let timeline;
@@ -76,6 +80,7 @@ class Feed extends React.Component {
 						profilePic={profilePic}
 						post={post}
 						me={this.props.me}
+						timer={this.state.timer}
 					/>
 				);
 			});

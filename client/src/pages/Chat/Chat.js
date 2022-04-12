@@ -78,7 +78,7 @@ class Chat extends React.Component {
 	};
 
 	componentDidMount() {
-		setInterval(() => {
+		this.interval = setInterval(() => {
 			if (this._mounted) this.setState({ timer: this.state.timer + 1 });
 		}, 1000); //
 		if (!this.props.isLoggedIn) {
@@ -126,6 +126,7 @@ class Chat extends React.Component {
 
 	componentWillUnmount() {
 		this._mounted = false;
+		clearInterval(this.interval);
 	}
 	//thin bar display photos of friends and create links for our chat with them
 
