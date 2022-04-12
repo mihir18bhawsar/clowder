@@ -107,6 +107,10 @@ class Post extends React.Component {
 		);
 	};
 	render() {
+		const myname =
+			this.props.ownerName === "You"
+				? this.props.me.username
+				: this.props.ownerName;
 		if (this.props.me) {
 			if (
 				this.props.me._id === this.props.ownerId ||
@@ -122,7 +126,7 @@ class Post extends React.Component {
 					<div className="post-container">
 						<div className="top-section">
 							<Link
-								to={`/profile/${this.props.ownerName}`}
+								to={`/profile/${myname}`}
 								className="postProfileLink"
 							>
 								<img

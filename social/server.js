@@ -55,21 +55,33 @@ io.on("connection", (socket) => {
 		currentUserId = userId;
 		onlineUsers[userId] = { username, profilePicture, _id: userId };
 		io.emit("onlineUsersUpdated", onlineUsers);
+
+		socket.join("online_cats");
 	});
 	// adds newly logged in user to the list and updates the current user id on server side ... triggered on login hit
 	socket.on("login", (username, userId, profilePicture) => {
 		currentUserId = userId;
 		onlineUsers[userId] = { username, profilePicture, _id: userId };
 		io.emit("onlineUsersUpdated", onlineUsers);
+
+		socket.join("online_cats");
 	});
 	// removes the logged out user from onlineusers list
 	socket.on("logout", (userId) => {
 		delete onlineUsers[userId];
 		io.emit("onlineUsersUpdated", onlineUsers);
+
+		socket.leave("online_cats");
 	});
 	// for connection close... triggers before reload ... on application close
 	socket.on("disconnect", () => {
 		delete onlineUsers[currentUserId];
 		io.emit("onlineUsersUpdated", onlineUsers);
+
+		socket.leave("online_cats");
+	});
+
+	socket.on("newPost", (id) => {
+		socket.to("online_cats").emit("postsUpdated", id);
 	});
 });

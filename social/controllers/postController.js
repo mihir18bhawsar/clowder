@@ -3,7 +3,8 @@ const Post = require("../models/postModel");
 const AppError = require("../utils/AppError");
 exports.getPost = catchAsync(async (req, res, next) => {
 	const post = await Post.findById(req.params.id);
-	res.status(200).json({ status: "success", data: { post } });
+	if (!post) return next(new AppError(404, "post does not exist"));
+	res.status(200).json({ status: "success", post });
 	next();
 });
 

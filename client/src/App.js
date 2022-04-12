@@ -2,7 +2,7 @@ import React from "react";
 import { Router, Switch, Route } from "react-router-dom";
 import { io } from "socket.io-client";
 import { connect } from "react-redux";
-import { setSocket, setOnlineUsers, getMe } from "./actions";
+import { setSocket, setOnlineUsers, getMe, getPost } from "./actions";
 import Background from "./Components/Background/Background";
 import "./app.css";
 //import pages
@@ -49,6 +49,9 @@ class App extends React.Component {
 		this.socket.on("onlineUsersUpdated", (onlineUsers) => {
 			this.props.setOnlineUsers(onlineUsers);
 		});
+		this.socket.on("postsUpdated", (id) => {
+			if (this.props.isLoggedIn) this.props.getPost(id);
+		});
 	}
 	componentWillUnmount() {
 		this._mounted = false;
@@ -89,6 +92,9 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, { setSocket, setOnlineUsers, getMe })(
-	App
-);
+export default connect(mapStateToProps, {
+	setSocket,
+	getPost,
+	setOnlineUsers,
+	getMe,
+})(App);

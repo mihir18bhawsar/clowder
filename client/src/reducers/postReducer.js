@@ -11,6 +11,13 @@ const postReducer = (state = INITIAL_STATE, action) => {
 				timeline: { ...state.timeline, ...action.payload },
 			};
 		}
+		case "GET_POST": {
+			return {
+				...state,
+				me: { ...state.me },
+				timeline: { ...state.timeline, ...action.payload },
+			};
+		}
 		case "GET_POSTS": {
 			return Object.assign(state, action.payload);
 		}

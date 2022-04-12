@@ -26,6 +26,7 @@ export const unfollow = user.unfollow;
 export const getSearchUsers = user.getSearchUsers;
 
 export const createPost = post.createPost;
+export const getPost = post.getPost;
 export const getPosts = post.getPosts;
 export const like = post.like;
 export const dislike = post.dislike;
