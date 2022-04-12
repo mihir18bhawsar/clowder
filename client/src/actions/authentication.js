@@ -20,7 +20,8 @@ const login = ({ email, password }) => {
 			getState().socket.emit(
 				"login",
 				resolved.data.username,
-				resolved.data.userId
+				resolved.data.userId,
+				resolved.data.profilePicture
 			);
 		} catch (err) {
 			dispatch(

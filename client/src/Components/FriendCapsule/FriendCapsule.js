@@ -17,10 +17,15 @@ class FriendCapsule extends React.Component {
 		// e.stopPropagation();
 	};
 	render() {
-		if (this.props.user.disabled) return null;
+		let name;
+		if (this.props.user?.username === this.props.me?.username) name = "You";
+		else name = this.props.user.username;
+		if (this.props.user?.disabled) return null;
 		return (
 			<Link
-				className="capsule-link expanded"
+				className={`capsule-link expanded ${
+					this.props.chat ? "onlineFriendsShrink" : ""
+				}`}
 				to={`/profile/${this.props.user.username}`}
 			>
 				<div className="capsule-container">
@@ -36,10 +41,8 @@ class FriendCapsule extends React.Component {
 							alt="profile"
 						/>
 					</div>
-					<div className="friendName">{this.props.user.username}</div>
-					{this.props.chat ? null : this.props.me.following.includes(
-							this.props.user._id
-					  ) ? (
+					<div className="friendName">{name}</div>
+					{this.props.me.following.includes(this.props.user._id) ? (
 						<PersonRemoveIcon
 							className="mini-post-buttons"
 							onClick={(e) => this.handleUnfollow(e)}

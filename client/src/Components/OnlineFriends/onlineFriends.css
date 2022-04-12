@@ -20,6 +20,12 @@
 	}
 }
 
+.of-container ul {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 li {
 	list-style: none;
 }
@@ -61,4 +67,14 @@ ul {
 	display: flex;
 	flex-direction: column;
 	padding: calc(1vw + 15px);
+}
+.of-container .rightbar-hr {
+	width: 30%;
+	margin: 0;
+}
+.rightbar-heading {
+	margin-top: 2vh;
+}
+.rightbar-hr {
+	width: 30%;
 }

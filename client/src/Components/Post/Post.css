@@ -25,8 +25,8 @@
 }
 
 .post-bottom {
-	padding: 1.3vw;
-	margin: 0 2.5%;
+	padding: 1vw;
+	margin: 1vh 2.5%;
 	background-color: slateblue;
 	display: flex;
 	flex-direction: row;

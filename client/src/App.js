@@ -41,7 +41,8 @@ class App extends React.Component {
 					this.socket.emit(
 						"reload",
 						this.props.me.username,
-						this.props.me._id
+						this.props.me._id,
+						this.props.me.profilePicture
 					);
 			});
 		}

@@ -118,6 +118,7 @@ exports.login = catchAsync(async (req, res, next) => {
 		token,
 		username: user.username,
 		userId: user._id,
+		profilePicture: user.profilePicture,
 	});
 });
 /*recap

@@ -50,16 +50,16 @@ const onlineUsers = {};
 io.on("connection", (socket) => {
 	let currentUserId;
 	// on application refresh ... on application close and reopen ... triggered only if already logged in
-	socket.on("reload", (username, userId) => {
-		console.log("reload", onlineUsers);
+	socket.on("reload", (username, userId, profilePicture) => {
+		// console.log("reload", onlineUsers);
 		currentUserId = userId;
-		onlineUsers[userId] = username;
+		onlineUsers[userId] = { username, profilePicture, _id: userId };
 		io.emit("onlineUsersUpdated", onlineUsers);
 	});
 	// adds newly logged in user to the list and updates the current user id on server side ... triggered on login hit
-	socket.on("login", (username, userId) => {
+	socket.on("login", (username, userId, profilePicture) => {
 		currentUserId = userId;
-		onlineUsers[userId] = username;
+		onlineUsers[userId] = { username, profilePicture, _id: userId };
 		io.emit("onlineUsersUpdated", onlineUsers);
 	});
 	// removes the logged out user from onlineusers list
