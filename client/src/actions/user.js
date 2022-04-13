@@ -2,13 +2,15 @@ import social from "../apis/social";
 import authentication from "./authentication";
 import messageAndError from "./messageAndError";
 import history from "../history";
+import { getPosts } from ".";
 
 const unfollow = (id) => async (dispatch, getState) => {
 	try {
 		const res = await social.patch(`/users/${id}/unfollow`);
 		dispatch(messageAndError.messageShow(res.data.message));
-		dispatch(getMe());
-		dispatch(getUserCache(id));
+		await dispatch(getMeAndMore());
+		await dispatch(getUserCache(id));
+		await dispatch(getPosts());
 		dispatch({ type: "UNFOLLOW_USER", payload: null });
 		getState().socket.emit("unfollowed", id);
 	} catch (err) {
@@ -25,8 +27,9 @@ const follow = (id) => async (dispatch, getState) => {
 	try {
 		const res = await social.patch(`/users/${id}/follow`);
 		dispatch(messageAndError.messageShow(res.data.message));
-		dispatch(getUserCache(id));
-		dispatch(getMe());
+		await dispatch(getUserCache(id));
+		await dispatch(getMeAndMore());
+		await dispatch(getPosts());
 		dispatch({ type: "FOLLOW_USER", payload: null });
 		getState().socket.emit("followed", id);
 	} catch (err) {
