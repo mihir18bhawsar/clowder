@@ -3,13 +3,14 @@ import authentication from "./authentication";
 import messageAndError from "./messageAndError";
 import history from "../history";
 
-const unfollow = (id) => async (dispatch) => {
+const unfollow = (id) => async (dispatch, getState) => {
 	try {
 		const res = await social.patch(`/users/${id}/unfollow`);
 		dispatch(messageAndError.messageShow(res.data.message));
 		dispatch(getMe());
 		dispatch(getUserCache(id));
 		dispatch({ type: "UNFOLLOW_USER", payload: null });
+		getState().socket.emit("unfollowed", id);
 	} catch (err) {
 		dispatch(
 			messageAndError.errorShow(
@@ -20,13 +21,14 @@ const unfollow = (id) => async (dispatch) => {
 	}
 };
 
-const follow = (id) => async (dispatch) => {
+const follow = (id) => async (dispatch, getState) => {
 	try {
 		const res = await social.patch(`/users/${id}/follow`);
 		dispatch(messageAndError.messageShow(res.data.message));
 		dispatch(getUserCache(id));
 		dispatch(getMe());
 		dispatch({ type: "FOLLOW_USER", payload: null });
+		getState().socket.emit("followed", id);
 	} catch (err) {
 		dispatch(
 			messageAndError.errorShow(
@@ -42,6 +44,10 @@ const getFollowing = (id) => async (dispatch) => {
 		const resolved = await social.get(`/users/${id}/following`);
 		const following = resolved.data.data.following;
 		if (following.length < 1) {
+			dispatch({
+				type: "GET_FOLLOWING",
+				payload: {},
+			});
 			return;
 		}
 
@@ -67,6 +73,7 @@ const getFollowers = (id) => async (dispatch) => {
 		const resolved = await social.get(`/users/${id}/followers`);
 		const followers = resolved.data.data.followers;
 		if (followers.length < 1) {
+			dispatch({ type: "GET_FOLLOWERS", payload: {} });
 			return;
 		}
 		const idObjectPairs = followers.map((one) => {

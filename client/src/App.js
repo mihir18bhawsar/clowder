@@ -2,7 +2,15 @@ import React from "react";
 import { Router, Switch, Route } from "react-router-dom";
 import { io } from "socket.io-client";
 import { connect } from "react-redux";
-import { setSocket, setOnlineUsers, getMe, getPost } from "./actions";
+import {
+	setSocket,
+	setOnlineUsers,
+	getMe,
+	getPost,
+	getPosts,
+	getMeAndMore,
+	messageShow,
+} from "./actions";
 import Background from "./Components/Background/Background";
 import "./app.css";
 //import pages
@@ -31,6 +39,11 @@ class App extends React.Component {
 		await this.props.getMe();
 	};
 
+	postsUpdated = async (id) => {
+		await this.props.getMeAndMore();
+		await this.props.getPosts();
+	};
+
 	componentDidMount() {
 		this._mounted = true;
 		this.socket = io("ws://localhost:8000");
@@ -51,6 +64,20 @@ class App extends React.Component {
 		});
 		this.socket.on("postsUpdated", (id) => {
 			if (this.props.isLoggedIn) this.props.getPost(id);
+		});
+		this.socket.on("follower_left", (id) => {
+			this.postsUpdated(id).then(() => {
+				this.props.messageShow(
+					`${this.props.user[id].username} unfollowed You`
+				);
+			});
+		});
+		this.socket.on("follower_added", (id) => {
+			this.postsUpdated(id).then(() => {
+				this.props.messageShow(
+					`${this.props.user[id].username} followed You`
+				);
+			});
 		});
 	}
 	componentWillUnmount() {
@@ -89,12 +116,16 @@ const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: state.auth.isLoggedIn,
 		me: state.user.me,
+		user: state.user,
 	};
 };
 
 export default connect(mapStateToProps, {
 	setSocket,
 	getPost,
+	getPosts,
 	setOnlineUsers,
 	getMe,
+	getMeAndMore,
+	messageShow,
 })(App);

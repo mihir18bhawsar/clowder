@@ -19,7 +19,7 @@ const postReducer = (state = INITIAL_STATE, action) => {
 			};
 		}
 		case "GET_POSTS": {
-			return Object.assign(state, action.payload);
+			return action.payload;
 		}
 		case "LIKE": {
 			return { ...state };

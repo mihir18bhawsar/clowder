@@ -56,7 +56,7 @@ io.on("connection", (socket) => {
 		onlineUsers[userId] = { username, profilePicture, _id: userId };
 		io.emit("onlineUsersUpdated", onlineUsers);
 
-		socket.join("online_cats");
+		socket.join(["online_cats", `${userId}`]);
 	});
 	// adds newly logged in user to the list and updates the current user id on server side ... triggered on login hit
 	socket.on("login", (username, userId, profilePicture) => {
@@ -64,7 +64,7 @@ io.on("connection", (socket) => {
 		onlineUsers[userId] = { username, profilePicture, _id: userId };
 		io.emit("onlineUsersUpdated", onlineUsers);
 
-		socket.join("online_cats");
+		socket.join(["online_cats", `${userId}`]);
 	});
 	// removes the logged out user from onlineusers list
 	socket.on("logout", (userId) => {
@@ -83,5 +83,12 @@ io.on("connection", (socket) => {
 
 	socket.on("newPost", (id) => {
 		socket.to("online_cats").emit("postsUpdated", id);
+	});
+
+	socket.on("followed", (id) => {
+		socket.to(`${id}`).emit("follower_added", currentUserId);
+	});
+	socket.on("unfollowed", (id) => {
+		socket.to(`${id}`).emit("follower_left", currentUserId);
 	});
 });
