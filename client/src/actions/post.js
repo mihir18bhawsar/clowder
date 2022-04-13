@@ -67,11 +67,12 @@ const getPosts = () => async (dispatch) => {
 	}
 };
 
-const like = (id) => async (dispatch) => {
+const like = (id) => async (dispatch, getState) => {
 	try {
 		await social.patch(`/posts/${id}/like`);
-		await dispatch(getPosts());
+		await dispatch(getPost(id));
 		dispatch({ type: "LIKE", payload: null });
+		getState().socket.emit("newPost", id);
 	} catch (err) {
 		dispatch(
 			messageAndError.errorShow(
@@ -82,11 +83,12 @@ const like = (id) => async (dispatch) => {
 	}
 };
 
-const dislike = (id) => async (dispatch) => {
+const dislike = (id) => async (dispatch, getState) => {
 	try {
 		await social.patch(`/posts/${id}/dislike`);
-		await dispatch(getPosts());
+		await dispatch(getPost(id));
 		dispatch({ type: "DISLIKE", payload: null });
+		getState().socket.emit("newPost", id);
 	} catch (err) {
 		dispatch(
 			messageAndError.errorShow(
