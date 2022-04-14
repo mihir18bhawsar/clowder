@@ -259,3 +259,24 @@
 	font-weight: 700;
 	text-shadow: 0 0 10px white;
 }
+
+.selectedChat {
+	border-width: 3px;
+	animation: popchat 300ms ease-out 200ms forwards;
+}
+
+@keyframes popchat {
+	0% {
+		transform: scale(1);
+	}
+	20% {
+		transform: scale(0.7);
+	}
+	100% {
+		border-style: groove;
+		border-color: slateblue;
+		transform: scale(1.05);
+		box-shadow: 0 0 2px 1px blue;
+		filter: brightness(120%) contrast(130%) saturate(150%);
+	}
+}

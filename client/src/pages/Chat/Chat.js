@@ -37,6 +37,7 @@ class Chat extends React.Component {
 			messageReady: false,
 			timer: 0,
 			viewModal: false,
+			currentChat: "",
 		};
 		this.formref = React.createRef();
 		this.dummyref = React.createRef();
@@ -76,6 +77,7 @@ class Chat extends React.Component {
 			const findconv = Object.values(this.props.conversation).find(
 				(conv) => conv.members.includes(later._id)
 			);
+			if (this._mounted) this.setState({ currentChat: later._id });
 			if (findconv) await this.messageLoad(findconv._id);
 		}
 	};
@@ -158,7 +160,12 @@ class Chat extends React.Component {
 								}`
 							}
 							alt="profile"
-							className="conversation-icon"
+							className={`conversation-icon ${
+								this.state.currentChat.toString() ===
+								notMe.toString()
+									? "selectedChat"
+									: ""
+							}`}
 						/>
 					</Link>
 				</li>
