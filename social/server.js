@@ -53,7 +53,12 @@ io.on("connection", (socket) => {
 	socket.on("reload", (username, userId, profilePicture) => {
 		// console.log("reload", onlineUsers);
 		currentUserId = userId;
-		onlineUsers[userId] = { username, profilePicture, _id: userId };
+		onlineUsers[userId] = {
+			username,
+			profilePicture,
+			_id: userId,
+			socket_ID: socket.id,
+		};
 		io.emit("onlineUsersUpdated", onlineUsers);
 
 		socket.join(["online_cats", `${userId}`]);
@@ -61,7 +66,12 @@ io.on("connection", (socket) => {
 	// adds newly logged in user to the list and updates the current user id on server side ... triggered on login hit
 	socket.on("login", (username, userId, profilePicture) => {
 		currentUserId = userId;
-		onlineUsers[userId] = { username, profilePicture, _id: userId };
+		onlineUsers[userId] = {
+			username,
+			profilePicture,
+			_id: userId,
+			socket_ID: socket.id,
+		};
 		io.emit("onlineUsersUpdated", onlineUsers);
 
 		socket.join(["online_cats", `${userId}`]);
@@ -90,5 +100,11 @@ io.on("connection", (socket) => {
 	});
 	socket.on("unfollowed", (id) => {
 		socket.to(`${id}`).emit("follower_left", currentUserId);
+	});
+	socket.on("newMessage", (receiver, senderName, conversation) => {
+		socket.to(receiver).emit("updateMessages", conversation, senderName);
+	});
+	socket.on("newConversation", (receiver) => {
+		socket.to(receiver).emit("updateConversations", currentUserId);
 	});
 });

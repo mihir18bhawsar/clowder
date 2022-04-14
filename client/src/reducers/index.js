@@ -12,6 +12,7 @@ import conversationReducer from "./conversationReducer";
 import chatMessageReducer from "./chatMessageReducer";
 import socketReducer from "./socketReducer";
 import onlineUsersReducer from "./onlineUsersReducer";
+import pathReducer from "./pathReducer";
 
 const allReducers = combineReducers({
 	error: errorReducer,
@@ -26,6 +27,7 @@ const allReducers = combineReducers({
 	chatMessage: chatMessageReducer,
 	socket: socketReducer,
 	onlineUsers: onlineUsersReducer,
+	path: pathReducer,
 });
 const rootReducer = (state, action) => {
 	if (action.type === "USER_SESSION_OVER") {

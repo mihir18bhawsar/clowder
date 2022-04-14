@@ -57,7 +57,7 @@ const logout = () => async (dispatch, getState) => {
 };
 
 const register = ({ username, email, password }) => {
-	return async (dispatch) => {
+	return async (dispatch, getState) => {
 		try {
 			const user = await social.post("/auth/register", {
 				username,
@@ -68,6 +68,12 @@ const register = ({ username, email, password }) => {
 			Cookies.set("token", user.data.token, { expires: 1 / 24 });
 			history.push("/");
 			dispatch(messageAndError.messageShow("Registered successfully!"));
+			getState().socket.emit(
+				"login",
+				user.data.data.user.username,
+				user.data.data.user._id,
+				user.data.data.user.profilePicture
+			);
 		} catch (err) {
 			dispatch(
 				messageAndError.errorShow(

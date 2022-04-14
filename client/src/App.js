@@ -10,6 +10,9 @@ import {
 	getPosts,
 	getMeAndMore,
 	messageShow,
+	getMessagesByConversation,
+	getMyConversations,
+	getUser,
 } from "./actions";
 import Background from "./Components/Background/Background";
 import "./app.css";
@@ -79,7 +82,20 @@ class App extends React.Component {
 				);
 			});
 		});
+		this.socket.on("updateMessages", (id, sender) => {
+			this.props.getMessagesByConversation(id, sender);
+		});
+		this.socket.on("updateConversations", (id) => {
+			this.updateConversationProcess(id);
+		});
 	}
+	updateConversationProcess = async (id) => {
+		await this.props.getUser(id);
+		await this.props.getMyConversations();
+		this.props.messageShow(
+			`${this.props.user[id].username} started a new conversation`
+		);
+	};
 	componentWillUnmount() {
 		this._mounted = false;
 	}
@@ -128,4 +144,7 @@ export default connect(mapStateToProps, {
 	getMe,
 	getMeAndMore,
 	messageShow,
+	getMessagesByConversation,
+	getMyConversations,
+	getUser,
 })(App);

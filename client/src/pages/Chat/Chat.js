@@ -14,6 +14,7 @@ import {
 	createNewMessage,
 	getUserCache,
 	createNewConversation,
+	pathset,
 } from "../../actions";
 import ForumIcon from "@mui/icons-material/Forum";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -51,6 +52,8 @@ class Chat extends React.Component {
 			conversationsList.forEach((conversation) => {
 				memberList.push(...conversation.members);
 			});
+		} else {
+			return;
 		}
 		const memberpromises = _.uniq(memberList).map(async (id) => {
 			await this.props.getUser(id);
@@ -97,6 +100,7 @@ class Chat extends React.Component {
 	}
 	//if user switches chats load new chat data
 	componentDidUpdate(prevProps) {
+		this.props.pathset(`${this.props.location.pathname}`);
 		if (
 			history.location.pathname !== "/chat" &&
 			prevProps.match.params.username !== this.props.match.params.username
@@ -382,4 +386,5 @@ export default connect(mapStateToProps, {
 	createNewMessage,
 	getUserCache,
 	createNewConversation,
+	pathset,
 })(Chat);

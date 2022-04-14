@@ -4,6 +4,7 @@ import user from "./user";
 import post from "./post";
 import conversation from "./conversation";
 import chatMessage from "./chatMessage";
+import path from "./path";
 
 export const login = authentication.login;
 export const logout = authentication.logout;
@@ -43,3 +44,5 @@ export const setSocket = (socket) => {
 export const setOnlineUsers = (onlineUsers) => {
 	return { type: "SET_ONLINE_USERS", payload: onlineUsers };
 };
+
+export const pathset = path.pathset;

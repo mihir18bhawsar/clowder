@@ -19,7 +19,14 @@ exports.createMessage = catchAsync(async (req, res, next) => {
 		conversation: req.body.conversation,
 		sender: req.body.sender || req.user._id,
 	});
-	res.json({ status: "success", data: { message } });
+	const conversation = await Conversation.findById(req.body.conversation);
+	const receiver = conversation.members
+		.find(
+			(m) =>
+				m.toString() !== req.body.sender && m.toString() != req.user._id
+		)
+		.toString();
+	res.json({ status: "success", data: { message, receiver } });
 });
 
 exports.getAllMessages = catchAsync(async (req, res, next) => {

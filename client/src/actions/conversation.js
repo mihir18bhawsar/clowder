@@ -4,6 +4,7 @@ const getMyConversations = () => async (dispatch) => {
 	try {
 		const res = await social.get("/conversations/me");
 		const conversationsList = res.data.data.conversations;
+		if (!conversationsList.length) return;
 		let conversations = conversationsList.map((con) => {
 			return { [con._id]: con };
 		});
@@ -26,6 +27,7 @@ const createNewConversation = (receiver) => async (dispatch, getState) => {
 			receiver,
 		});
 		dispatch(getMyConversations());
+		getState().socket.emit("newConversation", receiver);
 	} catch (err) {
 		dispatch(
 			messageAndError.errorShow(
